@@ -16,15 +16,17 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', [AuthController::class, 'showClientLoginForm']);
-Route::post('/', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'showLoginForm']);
+Route::post('/', [AuthController::class, 'login'])->name('login');
+;
 
-Route::get('/admin', [AuthController::class, 'showAdminLoginForm']);
+Route::get('/admin', [AuthController::class, 'showLoginForm']);
 Route::post('/admin', [AuthController::class, 'login'])->name('login');
 
 
-Route::get('/offerer', [AuthController::class, 'showOffererLoginForm']);
-Route::post('/offerer', [AuthController::class, 'login']);
+Route::get('/offerer', [AuthController::class, 'showLoginForm']);
+Route::post('/offerer', [AuthController::class, 'login'])->name('login');
+;
 
 //home route for admin
 Route::get('/admin/home', function () {
@@ -37,4 +39,7 @@ Route::get('/offerer/home', function () {
 
 Route::get('/home', function () {
     return view('client.index');
+});
+Route::get('/clerk/home', function () {
+    return view('clerk.index');
 });
