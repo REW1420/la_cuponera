@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CategoriesController;
 
 
 /*
@@ -17,21 +17,20 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', [AuthController::class, 'showLoginForm']);
+
 Route::post('/', [AuthController::class, 'login'])->name('login');
-;
+Route::post("/admin/home/categories", [CategoriesController::class, 'store'])->name('store.category');
 
-Route::get('/admin', [AuthController::class, 'showLoginForm']);
-Route::post('/admin', [AuthController::class, 'login'])->name('login');
-
-
-Route::get('/offerer', [AuthController::class, 'showLoginForm']);
-Route::post('/offerer', [AuthController::class, 'login'])->name('login');
-;
-
+//Route::middleware(['auth.check'])->group(function () {
 //home route for admin
 Route::get('/admin/home', function () {
-    return view('admin.index');
+    return view('admin.pages.companies');
 });
+Route::get('/admin/home/client', function () {
+    return view('admin.pages.client');
+});
+Route::get('/admin/home/categories', [CategoriesController::class, 'index']);
+
 
 Route::get('/offerer/home', function () {
     return view('offerer.index');
@@ -43,3 +42,5 @@ Route::get('/home', function () {
 Route::get('/clerk/home', function () {
     return view('clerk.index');
 });
+
+//});

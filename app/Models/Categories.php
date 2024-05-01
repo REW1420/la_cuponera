@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rubro extends Model
+class Categories extends Model
 {
     protected $fillable = ['name'];
 }

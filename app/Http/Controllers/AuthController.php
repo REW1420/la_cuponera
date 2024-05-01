@@ -27,6 +27,7 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
 
+        error_log($user);
 
         if ($user) {
             if ($password == $user->password) {

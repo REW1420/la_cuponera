@@ -1,99 +1,36 @@
-<!-- header.blade.php -->
-<style>
-    /* Estilos para el encabezado de navegación */
-.navbar {
-    background-color: #f8f9fa;
-    padding: 10px 0;
-}
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar-brand {
-    font-size: 24px;
-    text-decoration: none;
-    color: #333;
-}
-
-.navbar-menu {
-    display: none;
-}
-
-.navbar-toggler-icon {
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: #333;
-    position: relative;
-    transition: background-color 0.3s ease;
-}
-
-.navbar-toggler-icon::before, .navbar-toggler-icon::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: #333;
-    position: absolute;
-    left: 0;
-    transition: transform 0.3s ease;
-}
-
-.navbar-toggler-icon::before {
-    top: -10px;
-}
-
-.navbar-toggler-icon::after {
-    bottom: -10px;
-}
-
-.navbar-toggle:checked + .navbar-toggler-icon {
-    background-color: transparent;
-}
-
-.navbar-toggle:checked + .navbar-toggler-icon::before {
-    transform: rotate(45deg);
-    top: 0;
-}
-
-.navbar-toggle:checked + .navbar-toggler-icon::after {
-    transform: rotate(-45deg);
-    bottom: 0;
-}
-
-.navbar-toggle:checked + .navbar-toggler-icon + .navbar-menu {
-    display: block;
-}
-
-.navbar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-item {
-    margin-right: 20px;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: #333;
-    font-size: 18px;
-}
-
-.nav-link:hover {
-    color: #666;
-}
-
-</style>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Cuponera</a>
+<!-- welcome.blade.php (o cualquier otra vista) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
 
 
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
+    <div class="d-flex align-items-center">
+      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-4">La Cuponera</span>
     </div>
-</nav>
+
+    
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><a href="/admin/home" class="nav-link px-2 link-dark">Empresas ofertantes</a></li>
+    <li><a href="/admin/home/categories" class="nav-link px-2 link-dark">Rubros</a></li>
+    <li><a href="/admin/home/client" class="nav-link px-2 link-dark">Clientes</a></li>
+</ul>
+
+
+    <div class="col-md-3 text-end">
+      <button type="button" class="btn btn-danger me-2">Cerrar sesion</button>
+    </div>
+  </header>
+</div>
+
+</body>
+</html>
