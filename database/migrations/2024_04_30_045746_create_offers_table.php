@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('offers', function (Blueprint $table) {
-            $table->increments('offer_id');
+            $table->increments('id');
             $table->string('title', 255);
             $table->decimal('regular_price', 10, 2);
             $table->decimal('offer_price', 10, 2);
@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->text('other_details');
             $table->string('status', 50)->default('Pending approval');
             $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('company_id')->on('offerer_companies');
+            $table->foreign('company_id')->references('id')->on('offerer_companies');
             $table->timestamps();
 
         });

@@ -73,14 +73,22 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            "name" => "required",
+        ]);
+
+        Categories::find($id)->update($request->all());
+        return back()->with('success', "Rubro actualizado");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $category_id)
     {
-        //
+        Categories::destroy($category_id);
+        return back()->with('success', "Rubro eliminada");
     }
+
+
 }

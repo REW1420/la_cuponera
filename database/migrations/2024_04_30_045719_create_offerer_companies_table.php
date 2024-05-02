@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('offerer_companies', function (Blueprint $table) {
-            $table->increments('company_id');
+            $table->increments('id');
             $table->string('name', 255);
             $table->string('code', 6)->unique();
             $table->string('address', 255);
@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('phone', 20);
             $table->string('email', 100);
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('category_id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->decimal('commission', 5, 2);
             $table->timestamps();
 

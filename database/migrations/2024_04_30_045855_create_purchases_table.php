@@ -11,12 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->increments('purchase_id');
+            $table->increments('id');
             $table->integer('client_id')->unsigned();
             $table->integer('offer_id')->unsigned();
             $table->timestamp('purchase_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('client_id')->references('client_id')->on('clients');
-            $table->foreign('offer_id')->references('offer_id')->on('offers');
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('offer_id')->references('id')->on('offers');
             $table->timestamps();
         });
 

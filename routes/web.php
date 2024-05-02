@@ -20,6 +20,8 @@ Route::get('/', [AuthController::class, 'showLoginForm']);
 
 Route::post('/', [AuthController::class, 'login'])->name('login');
 Route::post("/admin/home/categories", [CategoriesController::class, 'store'])->name('store.category');
+Route::delete('/category/delete/{id}', [CategoriesController::class, 'destroy'])->name('destroy.category');
+Route::put('/category/update/{id}', [CategoriesController::class, 'update'])->name('update.category');
 
 //Route::middleware(['auth.check'])->group(function () {
 //home route for admin

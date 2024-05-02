@@ -11,11 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('coupons', function (Blueprint $table) {
-            $table->increments('coupon_id');
+            $table->increments('id');
             $table->string('unique_code', 20)->unique();
             $table->integer('purchase_id')->unsigned();
             $table->timestamp('generation_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('purchase_id')->references('purchase_id')->on('purchases');
+            $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->timestamps();
         });
     }
