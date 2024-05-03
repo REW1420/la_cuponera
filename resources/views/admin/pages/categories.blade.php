@@ -29,15 +29,16 @@ $a = '';
             <table id="categoryTable" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Rubro</th>
-                        <th scope="col">Opciones</th>
+                        <th>ID</th>
+                        <th>Rubro</th>
+                        <th>Opciones</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
                         <tr>
-                            <td scope="row">{{ $category->id }}</td>
+                            <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>
                                 <div class="d-flex flex-row mb-3">
@@ -55,6 +56,7 @@ $a = '';
                                     </div>
                                 </div>
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -114,9 +116,12 @@ $a = '';
                         'previous': '<span class="fa fa-chevron-left">-</span>',
                         'next': '<span class="fa fa-chevron-right">+</span>'
                     },
+                    "pageLength": 5, // Mostrar inicialmente solo 5 elementos
+
                     //customize number of elements to be displayed
                     "lengthMenu": 'Mostrar <select class="form-control input-sm">' +
-                        '<option value="5">5</option>' + // Nueva opción para mostrar 5 elementos por página
+                        '<option selected value="5">5</option>' +
+                        // Nueva opción para mostrar 5 elementos por página
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
                         '<option value="30">30</option>' +
@@ -124,6 +129,7 @@ $a = '';
                         '<option value="50">50</option>' +
                         '<option value="-1">All</option>' +
                         '</select> '
+
 
                 }
             })
