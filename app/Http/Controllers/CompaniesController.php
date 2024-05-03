@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Send_crendentialsMailable;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -56,14 +57,14 @@ class CompaniesController extends Controller
 
     private function generate_random_password()
     {
-        return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2);
+        return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 8);
     }
 
 
 
     public function store(Request $request)
     {
-
+        $temp_password = $this->generate_random_password();
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required',
@@ -90,15 +91,14 @@ class CompaniesController extends Controller
         $offerer = new User();
         $offerer->name = $request->input('contact_name');
         $offerer->email = $request->input('email');
-        $offerer->password = '';
+        $offerer->password = $temp_password;
         $offerer->role_id = 4; //Offerer role id is 4
 
         $company->save();
         $offerer->save();
-        $subject = "Credenciales para la empresa listas";
-        $message = "Las credenciales para el inicio de sesión son las siguientes. Correo: " . $request->input('email') . " Contraseña: " . $offerer->password;
 
-        if ($this->send_credentials($request->input('email'), $subject, $message)) {
+
+        if ($this->send_credentials($request->input('email'), $temp_password, $request->input('email'))) {
             return back()->with('success', '¡Empresa creada exitosamente!');
         } else {
             return back()->with('error', '¡Error al enviar el correo electrónico!');
@@ -129,8 +129,27 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required',
+            'contact_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'category_id' => 'required|integer',
+            'commission' => 'required|numeric',
+        ]);
+
+
+        $company = Offerer_companies::find($id);
+        $offerer = User::where('email', $company->email)->where('role_id', 4)->first();
+
+        $offerer->update(['email' => $request->email]);
+        $company->update($request->all());
+
+
+        return back()->with('success', "Empresa actualizada");
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -161,11 +180,10 @@ class CompaniesController extends Controller
         }
     }
 
-    private function send_credentials($to, $subject, $message)
+    private function send_credentials($to, string $password, string $email)
     {
         try {
-            Mail::to($to)->send(new Cuido2022($subject, $message));
-            return true;
+            Mail::to($to)->send(new Send_crendentialsMailable($password, $email));
         } catch (\Exception $e) {
             error_log($e);
             return false;

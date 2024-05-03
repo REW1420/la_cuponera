@@ -20,58 +20,74 @@ $a = '';
 
     <div class="container">
 
-        <button type="button" class="btn btn-info py-2 my-3" data-bs-toggle="modal" data-bs-target="#createModal">
-            Agregar nueva empresa ofertante
-        </button>
+
 
         <!-- Table -->
         <div class="table-responsive">
             <table id="categoryTable" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Codigo</th>
-                        <th>Nombre</th>
-                        <th>Rubro</th>
-                        <th>Contacto</th>
-                        <th>Comision</th>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Precio regular</th>
+                        <th>Precio en oferta</th>
+                        <th>Finaliza</th>
+                        <th>Estado</th>
                         <th>Opciones</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($companies as $company)
+                    @foreach ($offers as $offer)
                         <tr>
-                            <td>{{ $company->code }}</td>
-                            <td>{{ $company->name }}</td>
-                            <td>{{ $categories->where('id', $company->category_id)->first()->name }}</td>
-                            <td>{{ $company->email }}</td>
-                            <td>{{ $company->commission }}%</td>
+                            <td>{{ $offer->id }}</td>
+                            <td>{{ $offer->title }}</td>
+                            <td>{{ $offer->regular_price }}</td>
+                            <td>{{ $offer->offer_price }}</td>
+                            <td>{{ $offer->end_date }}</td>
+                            <td>
+                                @if ($offer->status_id == 1)
+                                    <span
+                                        class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Aprovado</span>
+                                @elseif($offer->status_id == 2)
+                                    <span
+                                        class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">Pendiente</span>
+                                @elseif($offer->status_id == 3)
+                                    <span
+                                        class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Rechazado</span>
+                                @elseif($offer->status_id == 4)
+                                    <span
+                                        class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Descartado</span>
+                                @else
+                                    <span
+                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Unknown</span>
+                                @endif
+
+                            </td>
+
                             <td>
                                 <div class="d-flex flex-row mb-3">
                                     <div>
-                                        <a href="/admin/companies/info/{{ $company->id }}" class="btn">
+                                        <a href="#" class="btn" data-bs-toggle="modal"
+                                            data-bs-target="#indexModal{{ $offer->id }}">
                                             <i style="color: green" class="material-icons">Ver</i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $company->id }}">
+                                            data-bs-target="#editModal{{ $offer->id }}">
                                             <i class="material-icons text-warning">Editar</i>
                                         </a>
                                     </div>
-                                    <div>
-                                        <a href="#" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal{{ $company->id }}">
-                                            <i class="material-icons text-danger">Eliminar</i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </td>
 
+
+
                         </tr>
-                        <!-- delete modal-->
-                        @include('modals.company.delete')
-                        @include('modals.company.edit', ['categories' => $categories])
+                        @include('modals.company.offer.edit')
+                        @include('modals.company.offer.index')
                     @endforeach
                 </tbody>
             </table>
@@ -83,7 +99,7 @@ $a = '';
 
 
 
-    @include('modals.company.create', ['categories' => $categories])
+
 
 
 

@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->integer('coupon_limit_quantity');
             $table->text('description');
             $table->text('other_details');
-            $table->string('status', 50)->default('Pending approval');
+            $table->integer('status');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('offerer_companies');
             $table->timestamps();
