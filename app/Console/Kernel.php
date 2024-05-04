@@ -13,6 +13,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('app:check_offers_expiration_date')->everySecond()->onSuccess(function () {
+            error_log('Updated');
+        })->onFailure(function () {
+            error_log('error');
+        });
     }
 
     /**
@@ -20,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offerer_companies;
 use App\Models\Offers;
+use App\Models\Purchases;
 use Illuminate\Http\Request;
 
 class OffersController extends Controller
@@ -12,8 +14,20 @@ class OffersController extends Controller
      */
     public function index(Request $request)
     {
-        $offers = Offers::where('company_id', $request->id)->get();
-        return view('admin.pages.company_info', compact('offers'));
+        $id = $request->id;
+        $offers = Offers::where('company_id', $id)->get();
+        $company = Offerer_companies::select('commission')->where('id', $id)->get()->first();
+        error_log($company);
+
+        $purchases = Purchases::join('offers as o', 'purchases.offer_id', '=', 'o.id')
+            ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
+            ->where('of.id', $id)
+            ->get();
+
+
+
+        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company']));
+
     }
 
 

@@ -87,7 +87,7 @@ $a = '';
 
                         </tr>
                         @include('modals.company.offer.edit')
-                        @include('modals.company.offer.index')
+                        @include('modals.company.offer.index', ['purchase', $purchases, $company])
                     @endforeach
                 </tbody>
             </table>
