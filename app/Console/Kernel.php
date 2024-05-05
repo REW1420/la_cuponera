@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('app:check_offers_expiration_date')->everySecond()->onSuccess(function () {
+
+        $schedule->command('app:check_offers_expiration_date')->everyMinute()->withoutOverlapping()->onSuccess(function () {
             error_log('Updated');
         })->onFailure(function () {
             error_log('error');

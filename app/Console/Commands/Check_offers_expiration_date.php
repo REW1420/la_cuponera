@@ -28,20 +28,21 @@ class Check_offers_expiration_date extends Command
     {
         $offers = Offers::all();
         $count = 0;
-        error_log('updating...');
-
         foreach ($offers as $offer) {
 
-            $endDate = \Carbon\Carbon::parse($offer->end_date);
+            $endDate = \Carbon\Carbon::parse($offer->end_date)->toDateString();
 
-            if ($endDate->isToday()) {
-                $offer->update(['status_id' => 6]);
-                $count++;
+            if ($endDate === now()->toDateString()) {
+
+                if ($offer->status_id == 1 || $offer->status_id === 2 || $offer->status_id === 3 || $offer->status_id === 5) {
+                    $offer->where('id', $offer->id)->update(['status_id' => 6]);
+                    $count++;
+                }
             }
         }
-
         $this->info($count . ' rows affected');
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\OffersController;
 use Illuminate\Support\Facades\Route;
@@ -33,13 +34,12 @@ Route::put('/company/update/{id}', [CompaniesController::class, 'update'])->name
 //Route::middleware(['auth.check'])->group(function () {
 //home route for admin
 Route::get('/admin/home', [CompaniesController::class, 'index']);
-Route::get('/admin/home/client', function () {
-    return view('admin.pages.client');
-});
+
 Route::get('/admin/home/categories', [CategoriesController::class, 'index']);
 Route::get('/admin/companies/info/{id}', [OffersController::class, 'index']);
 Route::put('/offer/update/{id}', [OffersController::class, 'update'])->name('update.offer');
 
+Route::get('/admin/home/client', [ClientsController::class, 'index']);
 
 Route::get('/offerer/home', function () {
     return view('offerer.index');
