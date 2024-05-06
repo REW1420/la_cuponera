@@ -23,6 +23,7 @@ class CompaniesController extends Controller
         $categories = Categories::all();
         $companies = Offerer_companies::all();
 
+
         return view('admin.pages.companies', compact('categories', 'companies'));
     }
 

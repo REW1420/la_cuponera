@@ -14,9 +14,15 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command('app:check_offers_expiration_date')->everyMinute()->withoutOverlapping()->onSuccess(function () {
-            error_log('Updated');
+            error_log('Offers updated');
         })->onFailure(function () {
-            error_log('error');
+            error_log('Offers error');
+        });
+
+        $schedule->command('app:check_coupons_expiration_date')->everyMinute()->withoutOverlapping()->onSuccess(function () {
+            error_log('Coupons update');
+        })->onFailure(function () {
+            error_log('Coupons error');
         });
     }
 

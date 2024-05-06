@@ -39,14 +39,13 @@ class CategoriesController extends Controller
         ]);
 
 
-        $category = Categories::create([
+        Categories::create([
             "name" => $request->input("name")
         ]);
 
 
-        session()->flash('success', 'La categoría se ha creado correctamente.');
 
-        return back();
+        return back()->with('success', "Rubro eliminada");
 
 
     }

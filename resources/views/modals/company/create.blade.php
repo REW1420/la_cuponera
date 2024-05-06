@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar nueva empresa</h1>
@@ -67,13 +67,16 @@
                             venta.
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
+
+
+
+                    </div>
 
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
+            </form>
         </div>
     </div>
-</div>

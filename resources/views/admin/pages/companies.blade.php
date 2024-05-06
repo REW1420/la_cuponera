@@ -16,11 +16,18 @@ $a = '';
 </head>
 
 <body>
-    @include('admin.header')
-
+    @include('header.header')
+    @include('header.background')
     <div class="container">
+        <p class="h2 my-4">Control de empresas ofertantes</p>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-        <button type="button" class="btn btn-info py-2 my-3" data-bs-toggle="modal" data-bs-target="#createModal">
+        <button style="background-color: #226CE7; color:white" type="button" class="btn btn-info py-2 my-3"
+            data-bs-toggle="modal" data-bs-target="#createModal">
             Agregar nueva empresa ofertante
         </button>
 

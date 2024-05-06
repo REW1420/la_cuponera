@@ -16,10 +16,17 @@ $a = '';
 </head>
 
 <body>
-    @include('admin.header')
-
+    @include('header.header')
+    @include('header.background')
     <div class="container">
 
+        <p class="h2 my-4">Informacion de ofertas</p>
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
 
         <!-- Table -->

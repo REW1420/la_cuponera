@@ -16,6 +16,12 @@
                     @elseif($offer->status_id == 4)
                         <span
                             class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Descartado</span>
+                    @elseif($offer->status_id == 5)
+                        <span
+                            class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Activo</span>
+                    @elseif($offer->status_id == 6)
+                        <span
+                            class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Vencido</span>
                     @else
                         <span
                             class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Unknown</span>

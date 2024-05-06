@@ -1,10 +1,10 @@
 <!-- Modal -->
 <div class="modal fade" id="editModal{{ $company->id }}" tabindex="-1" aria-labelledby="updateModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Actualiza la empresa</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar empresa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -35,7 +35,8 @@
                         <label for="phone" class="form-label">Teléfono</label>
                         <input type="text" class="form-control" id="phone" name="phone"
                             aria-describedby="phoneHelp" required value="{{ $company->phone }}">
-                        <div id="phoneHelp" class="form-text">Ingrese el número de teléfono de la empresa.</div>
+                        <div id="phoneHelp" class="form-text">Ingrese el número de teléfono de la empresa (sin codigo de
+                            area).</div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico</label>
@@ -68,13 +69,15 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                </form>
+
+
 
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

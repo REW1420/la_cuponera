@@ -10,8 +10,13 @@
 </head>
 
 <body>
-    @include('admin.header')
+    @include('header.header')
+    @include('header.background')
+
+
     <div class="container">
+        <p class="h2 my-4">Informacion de clientes</p>
+
         <div class="table-responsive">
             <table id="categoryTable" class="table table-hover" style="width: 100%">
                 <thead>
@@ -67,27 +72,51 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable({
+            $('#categoryTable').DataTable({
                 //disable sorting on last column
                 "columnDefs": [{
                     "orderable": false,
-                    "targets": 5
+                    "targets": 2
                 }],
                 language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
                     //customize pagination prev and next buttons: use arrows instead of words
                     'paginate': {
-                        'previous': '<span class="fa fa-chevron-left"></span>',
-                        'next': '<span class="fa fa-chevron-right"></span>'
+                        'previous': '<span class="fa fa-chevron-left">-</span>',
+                        'next': '<span class="fa fa-chevron-right">+</span>'
                     },
+                    "pageLength": 5, // Mostrar inicialmente solo 5 elementos
+
                     //customize number of elements to be displayed
-                    "lengthMenu": 'Display <select class="form-control input-sm">' +
+                    "lengthMenu": 'Mostrar <select class="form-control input-sm">' +
+                        '<option selected value="5">5</option>' +
+                        // Nueva opción para mostrar 5 elementos por página
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
                         '<option value="30">30</option>' +
                         '<option value="40">40</option>' +
                         '<option value="50">50</option>' +
                         '<option value="-1">All</option>' +
-                        '</select> results'
+                        '</select> '
+
+
                 }
             })
         });
