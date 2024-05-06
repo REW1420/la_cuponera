@@ -3,7 +3,7 @@
 
 <head>
     <title>La Cuponera</title>
-    <link rel="stylesheet" href="styles.css">
+
 </head>
 <style>
     * {
@@ -144,31 +144,33 @@
     <div class="background"></div>
 
     <div class="card">
-        <form class="form" method="POST" action="{{ route('login') }}">
+        <form class="form" method="POST" action="{{ route('password.update') }}">
             @csrf
-            <h2>Bienvenido de nuevo!</h2>
-            @if (session('error'))
-                <div class="alert alert-success">
-                    {{ session('error') }}
-                </div>
-            @endif
+            <h2>Recupera la contraseña</h2>
+            <input type="text" hidden name="token" id="token" value="{{ $token }}">
             <input type="email" name="email" id="email" placeholder="Correo">
             <input type="password" name="password" id="password" placeholder="Contraseña">
+            <input type="password" name="password_confirmation" id="password_confirmation"
+                placeholder="Confirmar contraseña">
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             @if (session('status'))
                 <div class="alert alert-success">{{ session('status') }}</div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    {{ $errors->first() }}
+                </div>
+            @endif
 
-            <button type="submit">Iniciar sesion</button>
-            <div style=" color: #216ce7;">
-                <p>o</p>
-                <a style=" color: #216ce7;" href="/register">Registrate aqui</a>
-            </div>
+            <button type="submit">Actualizar</button>
+
         </form>
+
 
         <hr>
         <footer>
-
-            <a href="/forgot_password">Olvido su contraseña</a>
         </footer>
     </div>
 </body>

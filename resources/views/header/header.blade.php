@@ -23,7 +23,7 @@
                         aria-expanded="false">Mas opciones</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown08">
                         <li><a class="dropdown-item" href="/admin/settings/user">Configurar perfil</a></li>
-                        <li><a class="dropdown-item" href="/">Cerrar sesion</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
 
                     </ul>
                 </li>

@@ -31,30 +31,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['clients'] as $client)
-                        @foreach ($data['user_info'] as $user)
-                            <tr>
-                                <td>{{ $client->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-
-                                <td>{{ $client->phone }}</td>
-                                <td>{{ $client->dui }}</td>
-                                <td>
-                                    <div class="d-flex flex-row mb-3">
-                                        <div>
-                                            <a href="#" class="btn" data-bs-toggle="modal"
-                                                data-bs-target="#infoModal{{ $user->id }}">
-                                                <i style="color: green" class="material-icons">Ver</i>
-                                            </a>
-                                        </div>
+                    @foreach ($data['user_info'] as $user)
+                        @php
+                            $client = $data['clients']->where('user_id', $user->id)->first();
+                        @endphp
+                        <tr>
+                            <td>{{ $client->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $client->phone }}</td>
+                            <td>{{ $client->dui }}</td>
+                            <td>
+                                <div class="d-flex flex-row mb-3">
+                                    <div>
+                                        <a href="#" class="btn" data-bs-toggle="modal"
+                                            data-bs-target="#infoModal{{ $user->id }}">
+                                            <i style="color: green" class="material-icons">Ver</i>
+                                        </a>
                                     </div>
-                                </td>
-
-                            </tr>
-                            @include('modals.client.index', ['coupons' => $data['coupons']])
-                        @endforeach
+                                </div>
+                            </td>
+                        </tr>
+                        @include('modals.client.index', ['coupons' => $data['coupons']])
                     @endforeach
+
                 </tbody>
             </table>
 
