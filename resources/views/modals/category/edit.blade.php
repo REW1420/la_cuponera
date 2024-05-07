@@ -10,6 +10,7 @@
                  <form id="formDelete" action="{{ route('update.category', $category->id) }}" method="POST">
                      @csrf
                      @method('PUT')
+
                      <div class="mb-3">
                          <label for="nombreRubro" class="form-label">Nombre del rubro</label>
                          <input type="text" class="form-control" id="name" name="name" pattern="[A-Za-z]+"

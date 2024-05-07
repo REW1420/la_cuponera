@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas de ofertas
     Route::put('/offer/update/{id}', [OffersController::class, 'update'])->name('update.offer');
+
+
 });
 
 // Rutas de roles
