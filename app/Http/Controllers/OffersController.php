@@ -15,20 +15,17 @@ class OffersController extends Controller
     public function index(Request $request)
     {
         $id = $request->id;
-        $offers = Offers::where('company_id', $id)->get();
-        $company = Offerer_companies::select('commission')->where('id', $id)->get()->first();
+        $offers = Offers::get();
+        $company = Offerer_companies::select('commission')->get();
         error_log($company);
-
         $purchases = Purchases::join('offers as o', 'purchases.offer_id', '=', 'o.id')
             ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
             ->where('of.id', $id)
             ->get();
-
-
-
-        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company']));
-
+        return view('client.index', compact('offers', 'purchases', 'company'));
     }
+
+
 
 
     /**
@@ -36,7 +33,6 @@ class OffersController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -61,7 +57,6 @@ class OffersController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**

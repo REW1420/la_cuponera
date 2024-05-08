@@ -51,8 +51,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas de ofertas
     Route::put('/offer/update/{id}', [OffersController::class, 'update'])->name('update.offer');
-
-
 });
 
 // Rutas de roles
@@ -60,12 +58,11 @@ Route::prefix('')->group(function () {
     Route::get('/offerer/home', function () {
         return view('offerer.index');
     });
-    Route::get('/home', function () {
-        return view('client.index');
-    });
+
+    Route::get('/home/client', [OffersController::class, 'index']);
+
+
     Route::get('/clerk/home', function () {
         return view('clerk.index');
     });
 });
-
-
