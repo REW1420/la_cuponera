@@ -19,14 +19,13 @@ $a = '';
     @include('header.header')
     @include('header.background')
     <div class="container">
-
-        <p class="h2 my-4">Informacion de ofertas</p>
-
+        <p class="h2 my-4">Control de solitudes de ofertas</p>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
+
 
 
         <!-- Table -->
@@ -45,7 +44,7 @@ $a = '';
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($offers as $offer)
+                    @foreach ($new_offers as $offer)
                         <tr>
                             <td>{{ $offer->id }}</td>
                             <td>{{ $offer->title }}</td>
@@ -99,13 +98,8 @@ $a = '';
 
 
                         </tr>
-                        @include('modals.company.offer.edit')
-                        @include('modals.company.offer.index', [
-                            'purchase',
-                            $purchases,
-                            $company,
-                            'reasons' => $rejectedReasons,
-                        ])
+
+                        @include('modals.offer.new')
                     @endforeach
                 </tbody>
             </table>

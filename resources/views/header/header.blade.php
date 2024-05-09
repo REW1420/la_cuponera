@@ -10,6 +10,9 @@
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin/home/offers">Solicitudes de ofertas</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/admin/home">Empresas ofertantes</a>
                 </li>
                 <li class="nav-item">
@@ -22,8 +25,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-bs-toggle="dropdown"
                         aria-expanded="false">Mas opciones</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown08">
-                        <li><a class="dropdown-item" href="/admin/settings/user">Configurar perfil</a></li>
-                        <li><a class="dropdown-item" href="/logout">Cerrar sesion</a></li>
+                        <li><a class="dropdown-item" href="/settings/user">Configurar perfil</a></li>
+                        <li><a class="dropdown-item" href="/system/logout">Cerrar sesion</a></li>
 
                     </ul>
                 </li>

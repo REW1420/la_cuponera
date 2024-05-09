@@ -147,19 +147,58 @@
         <form class="form" method="POST" action="{{ route('register') }}">
             @csrf
             <h2>Crear cuenta</h2>
-            <input type="text" name="name" id="name" placeholder="Nombre">
-            <input type="email" name="email" id="email" placeholder="Correo">
-            <input type="text" name="phone" id="phone" placeholder="Teléfono">
-            <input type="text" name="dui" id="dui" placeholder="DUI">
-            <input type="password" name="password" id="password" placeholder="Contraseña">
+
+            <!-- Nombre -->
+            <input value="{{ old('name') }}" type="text" name="name" id="name" placeholder="Nombre" required>
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- Correo electrónico -->
+            <input value="{{ old('email') }}" type="email" name="email" id="email" placeholder="Correo"
+                required>
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- Teléfono -->
+            <input value="{{ old('phone') }}" type="text" name="phone" id="phone" placeholder="Teléfono"
+                required>
+            @error('phone')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <!-- Teléfono -->
+            <input value="{{ old('address') }}" type="text" name="address" id="address" placeholder="Dirección"
+                required>
+            @error('address')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- DUI -->
+            <input value="{{ old('dui') }}" type="text" name="dui" id="dui" placeholder="DUI">
+            @error('dui')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- Contraseña -->
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+
+            <!-- Confirmación de contraseña -->
             <input type="password" name="password_confirmation" id="password_confirmation"
-                placeholder="Confirmar contraseña">
+                placeholder="Confirmar contraseña" required>
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <p>La conteaseña debe tener 8 digitos, una mayuscula y minuscula y un caracter especial</p>
             <button type="submit">Crear cuenta</button>
-            <div style=" color: #216ce7;">
+
+            <div style="color: #216ce7;">
                 <p>o</p>
-                <a style=" color: #216ce7;" href="/">¿Ya posee cuenta?</a>
+                <a style="color: #216ce7;" href="/">¿Ya posee cuenta?</a>
             </div>
         </form>
+
+
 
 
         <hr>

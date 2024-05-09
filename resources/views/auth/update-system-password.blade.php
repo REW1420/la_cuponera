@@ -144,23 +144,37 @@
     <div class="background"></div>
 
     <div class="card">
-        <form class="form" method="POST" action="{{ route('password.email') }}">
+        <form class="form" method="POST" action="{{ route('password.settings') }}">
             @csrf
-            <h2>Insegre su correo para recuperar la contraseña</h2>
-            <input required type="email" name="email" id="email" placeholder="Correo">
+            <h2>Actualiza tu contraseña</h2>
+
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{ $errors->first() }}
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
                 </div>
             @endif
-            <button type="submit">Recuperar contraseña</button>
 
+            <!-- Contraseña -->
+            <input autocomplete="new-password" type="password" name="password" id="password" placeholder="Contraseña"
+                required>
+
+            <!-- Confirmación de contraseña -->
+            <input autocomplete="new-password" type="password" name="password_confirmation" id="password_confirmation"
+                placeholder="Confirmar contraseña" required>
+
+            <button type="submit">Cambiar contraseña</button>
         </form>
+
 
         <hr>
         <footer>
 
-            <a href="/">Iniciar sesion</a>
+            <div style="color: #216ce7;">
+
+                <a style="color: #216ce7;" href="{{ url()->previous() }}">Cancelar</a>
+            </div>
         </footer>
     </div>
 </body>

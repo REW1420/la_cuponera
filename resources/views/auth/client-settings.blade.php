@@ -144,23 +144,54 @@
     <div class="background"></div>
 
     <div class="card">
-        <form class="form" method="POST" action="{{ route('password.email') }}">
+        <form class="form" method="POST" action="{{ route('register') }}">
             @csrf
-            <h2>Insegre su correo para recuperar la contraseña</h2>
-            <input required type="email" name="email" id="email" placeholder="Correo">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-            <button type="submit">Recuperar contraseña</button>
+            <h2>Actualiza tu informacion</h2>
+
+            <!-- Nombre -->
+            <input value="{{ $user->name }}" type="text" name="name" id="name" placeholder="Nombre" required>
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- Correo electrónico -->
+            <input type="email" value="{{ $user->email }}" name="email" id="email" placeholder="Correo"
+                required>
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- Teléfono -->
+            <input type="text" value="{{ $client->phone }}" name="phone" id="phone" placeholder="Teléfono"
+                required>
+            @error('phone')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <!-- Teléfono -->
+            <input type="text" value="{{ $client->address }}" name="address" id="address" placeholder="Dirección"
+                required>
+            @error('address')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <!-- DUI -->
+            <input type="text" value="{{ $client->dui }}" name="dui" id="dui" placeholder="DUI">
+            @error('dui')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+
+
+            <button type="submit">Actualizar</button>
+
 
         </form>
+
 
         <hr>
         <footer>
 
-            <a href="/">Iniciar sesion</a>
+            <a href="/settings/password">Cambiar contraseña</a>
         </footer>
     </div>
 </body>

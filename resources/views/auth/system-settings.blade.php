@@ -144,23 +144,41 @@
     <div class="background"></div>
 
     <div class="card">
-        <form class="form" method="POST" action="{{ route('password.email') }}">
+        <form class="form" method="POST" action="{{ route('user.settings') }}">
             @csrf
-            <h2>Insegre su correo para recuperar la contraseña</h2>
-            <input required type="email" name="email" id="email" placeholder="Correo">
+            <h2>Actualiza tu informacion</h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    {{ $errors->first() }}
+
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+
                 </div>
             @endif
-            <button type="submit">Recuperar contraseña</button>
+            @if (session('success'))
+                <div class="alert alert-danger">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <input type="number" id="id" name="id" hidden value="{{ $user->id }}">
+            <input type="text" name="name" id="name" placeholder="Nombre" required
+                value="{{ $user->name }}">
+            <input type="email" name="email" id="email" placeholder="Correo" required
+                value="{{ $user->email }}">
 
+            <button type="submit">Actualizar</button>
+            <div style="color: #216ce7;">
+
+                <a style="color: #216ce7;" href="{{ url()->previous() }}">Cancelar</a>
+            </div>
         </form>
+
 
         <hr>
         <footer>
 
-            <a href="/">Iniciar sesion</a>
+            <a href="/settings/password">Cambiar contraseña</a>
         </footer>
     </div>
 </body>

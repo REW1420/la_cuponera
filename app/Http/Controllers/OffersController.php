@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Offerer_companies;
 use App\Models\Offers;
 use App\Models\Purchases;
+use App\Models\Rejected_reasons;
 use Illuminate\Http\Request;
 
 class OffersController extends Controller
@@ -24,9 +25,16 @@ class OffersController extends Controller
             ->where('of.id', $id)
             ->get();
 
+        $companyId = $request->id;
+
+        $rejectedReasons = Rejected_reasons::whereIn('offer_id', function ($query) use ($companyId) {
+            $query->select('id')
+                ->from('offers')
+                ->where('company_id', $companyId);
+        })->get();
 
 
-        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company']));
+        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company', 'rejectedReasons']));
 
     }
 
@@ -102,5 +110,20 @@ class OffersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function get_offers_by_status_waiting()
+    {
+        $new_offers = Offers::where('status_id', 2)->get();
+        return view('admin.pages.new-offers', compact('new_offers'));
+    }
+
+    public function set_approved_status(Request $request)
+    {
+        $offer_id = $request->input('id');
+        $offer = Offers::find($offer_id);
+        $offer->status_id = 1;
+        $offer->save();
+        return back()->with('success', "Oferta actualizada");
     }
 }

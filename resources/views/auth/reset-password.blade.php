@@ -148,9 +148,9 @@
             @csrf
             <h2>Recupera la contraseña</h2>
             <input type="text" hidden name="token" id="token" value="{{ $token }}">
-            <input type="email" name="email" id="email" placeholder="Correo">
-            <input type="password" name="password" id="password" placeholder="Contraseña">
-            <input type="password" name="password_confirmation" id="password_confirmation"
+            <input required type="email" name="email" id="email" placeholder="Correo">
+            <input required type="password" name="password" id="password" placeholder="Contraseña">
+            <input required type="password" name="password_confirmation" id="password_confirmation"
                 placeholder="Confirmar contraseña">
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>

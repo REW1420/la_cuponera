@@ -147,23 +147,29 @@
         <form class="form" method="POST" action="{{ route('login') }}">
             @csrf
             <h2>Bienvenido de nuevo!</h2>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+
+                </div>
+            @endif
             @if (session('error'))
-                <div class="alert alert-success">
+                <div class="alert alert-danger">
                     {{ session('error') }}
                 </div>
             @endif
-            <input type="email" name="email" id="email" placeholder="Correo">
-            <input type="password" name="password" id="password" placeholder="Contraseña">
-            @if (session('status'))
-                <div class="alert alert-success">{{ session('status') }}</div>
-            @endif
-
-            <button type="submit">Iniciar sesion</button>
-            <div style=" color: #216ce7;">
+            <input type="email" name="email" id="email" placeholder="Correo" required>
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+            <div style="color: #216ce7;">
                 <p>o</p>
-                <a style=" color: #216ce7;" href="/register">Registrate aqui</a>
+                <a style="color: #216ce7;" href="/register">Registrate aquí</a>
             </div>
         </form>
+
 
         <hr>
         <footer>

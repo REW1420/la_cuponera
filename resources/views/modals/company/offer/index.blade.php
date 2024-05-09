@@ -87,115 +87,141 @@
                                 </div>
                             </div>
 
+                            @if ($offer->status_id !== 3)
+                                <div class="d-flex align-items-center my-3">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="align-self-center me-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                                                    fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                                </svg>
+                                            </div>
+                                            <div class="text-right">
+                                                <?php $purchase_left_count = 0; ?>
 
-                            <div class="d-flex align-items-center my-3">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div class="align-self-center me-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                                                fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-                                            </svg>
+                                                @foreach ($purchases as $purchase)
+                                                    @if ($purchase->offer_id == $offer->id)
+                                                        <?php $purchase_left_count++; ?>
+                                                    @endif
+                                                @endforeach
+                                                <h3 class="mb-0">
+                                                    {{ $offer->coupon_limit_quantity - $purchase_left_count }}</h3>
+
+                                                <span class="d-block">Cupones restantes</span>
+                                            </div>
                                         </div>
-                                        <div class="text-right">
-                                            <?php $purchase_left_count = 0; ?>
+                                    </div>
 
-                                            @foreach ($purchases as $purchase)
-                                                @if ($purchase->offer_id == $offer->id)
-                                                    <?php $purchase_left_count++; ?>
-                                                @endif
-                                            @endforeach
-                                            <h3 class="mb-0">
-                                                {{ $offer->coupon_limit_quantity - $purchase_left_count }}</h3>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="align-self-center me-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                                                    fill="currentColor" class="bi bi-credit-card-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1" />
+                                                </svg>
+                                            </div>
+                                            <div class="text-right">
 
-                                            <span class="d-block">Cupones restantes</span>
+                                                <?php $purchaseCount = 0; ?>
+
+                                                @foreach ($purchases as $purchase)
+                                                    @if ($purchase->offer_id == $offer->id)
+                                                        <?php $purchaseCount++; ?>
+                                                    @endif
+                                                @endforeach
+                                                <h3 class="mb-0">{{ $purchaseCount }}</h3>
+
+
+
+
+                                                <span class="d-block">Cupones vendidos</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="d-flex align-items-center my-3">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="align-self-center me-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                                                    fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                                </svg>
+                                            </div>
+                                            <div class="text-right">
+                                                <?php $purchase_left_count = 0; ?>
 
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <div class="align-self-center me-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                                                fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1" />
-                                            </svg>
+                                                @foreach ($purchases as $purchase)
+                                                    @if ($purchase->offer_id == $offer->id)
+                                                        <?php $purchase_left_count++; ?>
+                                                    @endif
+                                                @endforeach
+                                                <h3 class="mb-0">
+                                                    ${{ $company->commission * $purchaseCount }}</h3>
+
+                                                <span class="d-block">Cargo por servicio</span>
+                                            </div>
                                         </div>
-                                        <div class="text-right">
+                                    </div>
 
-                                            <?php $purchaseCount = 0; ?>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="align-self-center me-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                                                    fill="currentColor" class="bi bi-credit-card-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1" />
+                                                </svg>
+                                            </div>
+                                            <div class="text-right">
 
-                                            @foreach ($purchases as $purchase)
-                                                @if ($purchase->offer_id == $offer->id)
-                                                    <?php $purchaseCount++; ?>
-                                                @endif
-                                            @endforeach
-                                            <h3 class="mb-0">{{ $purchaseCount }}</h3>
+                                                <?php $purchaseCount = 0; ?>
+
+                                                @foreach ($purchases as $purchase)
+                                                    @if ($purchase->offer_id == $offer->id)
+                                                        <?php $purchaseCount++; ?>
+                                                    @endif
+                                                @endforeach
+                                                <h3 class="mb-0">${{ $purchaseCount * $offer->offer_price }}</h3>
 
 
 
 
-                                            <span class="d-block">Cupones vendidos</span>
+                                                <span class="d-block">Ingresos totales</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center my-3">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <div class="align-self-center me-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                                                fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-                                            </svg>
-                                        </div>
-                                        <div class="text-right">
-                                            <?php $purchase_left_count = 0; ?>
+                            @endif
+                            @if ($offer->status_id === 3)
+                                @forelse ($reasons->where('offer_id', $offer->id) as $reason)
+                                    <div class="card m-2">
+                                        <div class="card-body d-flex align-items-center">
 
-                                            @foreach ($purchases as $purchase)
-                                                @if ($purchase->offer_id == $offer->id)
-                                                    <?php $purchase_left_count++; ?>
-                                                @endif
-                                            @endforeach
-                                            <h3 class="mb-0">
-                                                ${{ $company->commission * $purchaseCount }}</h3>
-
-                                            <span class="d-block">Cargo por servicio</span>
+                                            <div class="text-center">
+                                                <p>Razon de rechazo</p>
+                                                <span class="d-block">
+                                                    <p class="lead">{{ $reason->reason }}</p>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <div class="align-self-center me-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                                                fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1" />
-                                            </svg>
-                                        </div>
-                                        <div class="text-right">
-
-                                            <?php $purchaseCount = 0; ?>
-
-                                            @foreach ($purchases as $purchase)
-                                                @if ($purchase->offer_id == $offer->id)
-                                                    <?php $purchaseCount++; ?>
-                                                @endif
-                                            @endforeach
-                                            <h3 class="mb-0">${{ $purchaseCount * $offer->offer_price }}</h3>
+                                @empty
+                                    <p>No hay razón de rechazo para esta oferta.</p>
+                                @endforelse
+                            @else
+                                {{-- Aquí puedes agregar cualquier otro contenido o lógica si el estado no es 3 --}}
+                            @endif
 
 
 
-
-                                            <span class="d-block">Ingresos totales</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
