@@ -59,7 +59,13 @@ Route::prefix('')->group(function () {
         return view('offerer.index');
     });
 
-    Route::get('/home/client', [OffersController::class, 'index']);
+    Route::get('/home/client', [OffersController::class, 'index'])->name('offers.index');
+    Route::get('/cart', [OffersController::class, 'showCart'])->name('cart.show');
+    Route::get('/add-to-cart/{id}', [OffersController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/remove/{id}', [OffersController::class, 'removeFromCart'])->name('cart.remove');
+    Route::get('/cart/remove-item/{id}', [OffersController::class, 'removeItemFromCart'])->name('cart.remove.item');
+
+
 
 
     Route::get('/clerk/home', function () {

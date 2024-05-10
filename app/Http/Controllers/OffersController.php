@@ -25,6 +25,51 @@ class OffersController extends Controller
         return view('client.index', compact('offers', 'purchases', 'company'));
     }
 
+    public function showCart()
+    {
+        $cart = session()->get('cart');
+        return view('client.cart', compact('cart'));
+    }
+
+
+    public function addToCart(Request $request, $id)
+    {
+        $offer = Offers::findOrFail($id);
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "title" => $offer->title,
+                "quantity" => 1,
+                "price" => $offer->offer_price
+            ];
+        }
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Oferta agregada al carrito correctamente!');
+    }
+
+    public function removeFromCart($id)
+    {
+        $cart = session()->get('cart');
+
+        if (isset($cart[$id])) {
+            if ($cart[$id]['quantity'] > 1) {
+                $cart[$id]['quantity']--;
+            } else {
+                unset($cart[$id]);
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Producto eliminado del carrito.');
+    }
+
+
+
 
 
 

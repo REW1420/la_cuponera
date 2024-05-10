@@ -13,6 +13,8 @@
     @include('header.background')
     <div class="container">
         <p class="h2 my-4">Cupones en oferta</p>
+
+        <a href="{{ route('cart.show') }}" class="btn btn-success mb-3">Ver Carrito</a>
         <div class="table-responsive">
             <table id="categoryTable" class="table my-5 table-striped table-centered mb-0">
                 <thead>
@@ -22,22 +24,24 @@
                         <th>Precio de Oferta</th>
                         <th>Fecha de Inicio</th>
                         <th>Fecha de Finalización</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($offers as $offer)
+                    <tr>
                         <td>{{ $offer->title }}</td>
                         <td>{{ $offer->regular_price }}</td>
                         <td>{{ $offer->offer_price }}</td>
-                        <td>{{ $offer->start_date}}</td>
+                        <td>{{ $offer->start_date }}</td>
                         <td>{{ $offer->end_date }}</td>
+                        <td>
+                            <a href="{{ route('cart.add', $offer->id) }}" class="btn btn-primary btn-sm">Agregar al Carrito</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            
-            
-        
         </div>
     </div>
 </body>
