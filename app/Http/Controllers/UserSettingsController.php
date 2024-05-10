@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use Illuminate\Validation\Rule;
 
 use App\Models\Clients;
 use App\Models\Offerer_companies;
@@ -19,7 +20,8 @@ class UserSettingsController extends Controller
         $user = Auth::user();
 
         if ($user->role_id === 2) {
-            $client = Clients::find($user->id);
+            $client = Clients::where('user_id', $user->id)->first();
+
             return view('auth.client-settings', ['user' => $user, 'client' => $client]);
         } else {
             return view('auth.system-settings', ['user' => $user]);
@@ -92,6 +94,9 @@ class UserSettingsController extends Controller
 
 
 
+
+
+
     function update_system_client(Request $request)
     {
         $user = Auth::user();
@@ -109,32 +114,35 @@ class UserSettingsController extends Controller
             'dui.regex' => 'El DUI debe contener 9 números sin guiones.',
         ];
 
-        $request->validate([
+        $validationRules = [
             'name' => 'required',
             'email' => [
                 'required',
                 'email',
-                'unique:users,email,' . $userId,
+                Rule::unique('users')->ignore($user->id),
             ],
             'phone' => ['required', 'regex:/^[0-9]{8}$/'],
             'address' => 'required',
-            'dui' => ['required', 'regex:/^[0-9]{9}$/', 'unique:clients,dui,' . $userId],
-        ], $messages);
+            'dui' => ['required', 'regex:/^[0-9]{9}$/'],
+        ];
 
-        // Actualizar la información del usuario
+        $request->validate($validationRules, $messages);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->save();
 
-        // Actualizar la información del cliente
-        $client = $user->client; // Suponiendo que la relación entre User y Client se llama "client"
+
+        $client = Clients::where('user_id', $userId)->first();
         $client->phone = $request->input('phone');
-        $client->dui = $request->input('dui');
+        if ($client->dui !== $request->input('dui')) {
+            $client->dui = $request->input('dui');
+        }
         $client->address = $request->input('address');
         $client->save();
-
         return redirect()->back()->with('success', 'Datos actualizados');
     }
+
+
 
 
 }

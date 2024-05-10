@@ -204,7 +204,7 @@
         <hr>
         <footer>
 
-            <a href="#">Olvido su contraseña</a>
+
         </footer>
     </div>
 </body>

@@ -144,12 +144,21 @@
     <div class="background"></div>
 
     <div class="card">
-        <form class="form" method="POST" action="{{ route('register') }}">
+        <form class="form" method="POST" action="{{ route('client.settings') }}">
             @csrf
+            @method('PUT')
+
+
             <h2>Actualiza tu informacion</h2>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <!-- Nombre -->
-            <input value="{{ $user->name }}" type="text" name="name" id="name" placeholder="Nombre" required>
+            <input value="{{ $user->name }}" type="text" name="name" id="name" placeholder="Nombre"
+                required>
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror

@@ -37,7 +37,10 @@ class AuthController extends Controller
 
     public function SystemLogout(Request $request)
     {
+        $user = Auth::user();
         Auth::logout();
+        if ($user->role_id === 2)
+            return redirect('/');
         return redirect('/system');
     }
 

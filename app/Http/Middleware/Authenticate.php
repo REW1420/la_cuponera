@@ -17,7 +17,7 @@ class Authenticate extends Middleware
 
 
         if (!Auth::check()) {
-
+            error_log('redirecting');
             return redirect()->route('login')->with('error', 'Por favor, inicia sesión para acceder a esta pagina');
         }
 
