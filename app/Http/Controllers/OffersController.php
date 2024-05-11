@@ -27,8 +27,17 @@ class OffersController extends Controller
 
     public function showCart()
     {
-        $cart = session()->get('cart');
-        return view('client.cart', compact('cart'));
+        $cart = session()->get('cart', []);
+        $total = 0;
+
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+
+        $isEmpty = empty($cart);
+
+        return view('client.cart', compact('cart', 'total', 'isEmpty'));
     }
 
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\OffersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\PaymentController;
+
 
 
 
@@ -64,7 +66,7 @@ Route::prefix('')->group(function () {
     Route::get('/add-to-cart/{id}', [OffersController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/remove/{id}', [OffersController::class, 'removeFromCart'])->name('cart.remove');
     Route::get('/cart/remove-item/{id}', [OffersController::class, 'removeItemFromCart'])->name('cart.remove.item');
-
+    Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 
 
