@@ -16,14 +16,71 @@ class OffersController extends Controller
     public function index(Request $request)
     {
         $id = $request->id;
-        $offers = Offers::where('company_id', $id)->get();
-        $company = Offerer_companies::select('commission')->where('id', $id)->get()->first();
+        $offers = Offers::get();
+        $company = Offerer_companies::select('commission')->get();
         error_log($company);
-
         $purchases = Purchases::join('offers as o', 'purchases.offer_id', '=', 'o.id')
             ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
             ->where('of.id', $id)
             ->get();
+        return view('client.index', compact('offers', 'purchases', 'company'));
+    }
+
+    public function showCart()
+    {
+        $cart = session()->get('cart', []);
+        $total = 0;
+
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+
+        $isEmpty = empty($cart);
+
+        return view('client.cart', compact('cart', 'total', 'isEmpty'));
+    }
+
+
+    public function addToCart(Request $request, $id)
+    {
+        $offer = Offers::findOrFail($id);
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "title" => $offer->title,
+                "quantity" => 1,
+                "price" => $offer->offer_price
+            ];
+        }
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Oferta agregada al carrito correctamente!');
+    }
+
+    public function removeFromCart($id)
+    {
+        $cart = session()->get('cart');
+
+        if (isset($cart[$id])) {
+            if ($cart[$id]['quantity'] > 1) {
+                $cart[$id]['quantity']--;
+            } else {
+                unset($cart[$id]);
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Producto eliminado del carrito.');
+    }
+
+
+
+
 
         $companyId = $request->id;
 
@@ -44,7 +101,6 @@ class OffersController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -69,7 +125,6 @@ class OffersController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**

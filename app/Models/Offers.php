@@ -19,6 +19,4 @@ class Offers extends Model
         'status',
         'company_id',
     ];
-
-
 }

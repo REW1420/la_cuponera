@@ -9,6 +9,8 @@ use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\PaymentController;
+
 
 
 
@@ -81,9 +83,16 @@ Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/offerer/home', function () {
         return view('offerer.index');
     });
-});
 
-Route::middleware(['auth', 'role:4'])->group(function () {
+    Route::get('/home/client', [OffersController::class, 'index'])->name('offers.index');
+    Route::get('/cart', [OffersController::class, 'showCart'])->name('cart.show');
+    Route::get('/add-to-cart/{id}', [OffersController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/remove/{id}', [OffersController::class, 'removeFromCart'])->name('cart.remove');
+    Route::get('/cart/remove-item/{id}', [OffersController::class, 'removeItemFromCart'])->name('cart.remove.item');
+    Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+
+
     Route::get('/clerk/home', function () {
         return view('clerk.index');
     });
