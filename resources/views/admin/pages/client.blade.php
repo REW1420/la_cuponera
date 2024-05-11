@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    @include('header.header')
+    @include('header.admin')
     @include('header.background')
 
 

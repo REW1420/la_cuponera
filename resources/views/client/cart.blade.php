@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+
 <body>
-    @include('header.header')
+    @include('header.client')
     @include('header.background')
-    
+
     <div class="container mt-5">
         <h2>Carrito de Compras</h2>
-        <a href="{{ route('offers.index') }}" class="btn btn-secondary mb-3">Volver a Ofertas</a>
-        
+
+
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="thead-dark">
@@ -45,8 +48,9 @@
                 </tbody>
             </table>
         </div>
-        
-        <button type="button" class="btn btn-primary" {{ $isEmpty ? 'disabled' : 'data-toggle=modal data-target=#paymentModal' }}>
+
+        <button type="button" class="btn btn-primary"
+            {{ $isEmpty ? 'disabled' : 'data-toggle=modal data-target=#paymentModal' }}>
             {{ $isEmpty ? 'Carrito Vacío' : 'Realizar Pago' }}
         </button>
     </div>
@@ -73,7 +77,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="expirationDate" class="form-label">Fecha de Expiración</label>
-                            <input type="month" class="form-control" id="expirationDate" name="card_expiration" required>
+                            <input type="month" class="form-control" id="expirationDate" name="card_expiration"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="cvc" class="form-label">CVC</label>
@@ -81,9 +86,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Total a Pagar</label>
-                            <input type="number" class="form-control" id="amount" name="amount" value="{{ $total }}" readonly>
+                            <input type="number" class="form-control" id="amount" name="amount"
+                                value="{{ $total }}" readonly>
                         </div>
-                        
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Confirmar Pago</button>
                         </div>
@@ -93,8 +99,9 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
+
 </html>

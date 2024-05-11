@@ -16,7 +16,7 @@ $a = '';
 </head>
 
 <body>
-    @include('header.header')
+    @include('header.admin')
     @include('header.background')
     <div class="container">
         <p class="h2 my-4">Control de empresas ofertantes</p>

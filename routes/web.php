@@ -4,13 +4,12 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\OffersController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Rejected_reasons_Controller;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PaymentController;
-
 
 
 
@@ -55,7 +54,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin/home', [CompaniesController::class, 'index']);
 
     // Otras rutas de administrador
-    Route::get('/admin/companies/info/{id}', [OffersController::class, 'index']);
+    Route::get('/admin/companies/info/{id}', [OffersController::class, 'index_company_info']);
     Route::get('/admin/home/client', [ClientsController::class, 'index']);
 
     // Rutas de ofertas
@@ -74,25 +73,22 @@ Route::get('/email/verify/{token}', [EmailVerificationController::class, 'verify
 // Rutas de roles
 
 Route::middleware(['auth', 'role:2'])->group(function () {
-    Route::get('/home', function () {
-        return view('client.index');
-    });
-});
-
-Route::middleware(['auth', 'role:3'])->group(function () {
-    Route::get('/offerer/home', function () {
-        return view('offerer.index');
-    });
-
-    Route::get('/home/client', [OffersController::class, 'index'])->name('offers.index');
+    Route::get('/home', [OffersController::class, 'index'])->name('offers.index');
     Route::get('/cart', [OffersController::class, 'showCart'])->name('cart.show');
     Route::get('/add-to-cart/{id}', [OffersController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/remove/{id}', [OffersController::class, 'removeFromCart'])->name('cart.remove');
     Route::get('/cart/remove-item/{id}', [OffersController::class, 'removeItemFromCart'])->name('cart.remove.item');
     Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
 
+});
 
+Route::middleware(['auth', 'role:3'])->group(function () {
+    Route::get('/offerer/home', function () {
+        return view('offerer.index');
+    });
+});
 
+Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/clerk/home', function () {
         return view('clerk.index');
     });

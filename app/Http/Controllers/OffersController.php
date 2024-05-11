@@ -23,7 +23,34 @@ class OffersController extends Controller
             ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
             ->where('of.id', $id)
             ->get();
-        return view('client.index', compact('offers', 'purchases', 'company'));
+        $cart = session()->get('cart', []);
+        $cartLength = count($cart);
+        return view('client.index', compact('offers', 'purchases', 'company', 'cartLength'));
+    }
+
+    public function index_company_info(Request $request)
+    {
+        $id = $request->id;
+        $offers = Offers::where('company_id', $id)->get();
+        $company = Offerer_companies::select('commission')->where('id', $id)->get()->first();
+        error_log($company);
+
+        $purchases = Purchases::join('offers as o', 'purchases.offer_id', '=', 'o.id')
+            ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
+            ->where('of.id', $id)
+            ->get();
+
+        $companyId = $request->id;
+
+        $rejectedReasons = Rejected_reasons::whereIn('offer_id', function ($query) use ($companyId) {
+            $query->select('id')
+                ->from('offers')
+                ->where('company_id', $companyId);
+        })->get();
+
+
+        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company', 'rejectedReasons']));
+
     }
 
     public function showCart()
@@ -31,6 +58,7 @@ class OffersController extends Controller
         $cart = session()->get('cart', []);
         $total = 0;
 
+        $cartLength = count($cart);
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
         }
@@ -38,7 +66,7 @@ class OffersController extends Controller
 
         $isEmpty = empty($cart);
 
-        return view('client.cart', compact('cart', 'total', 'isEmpty'));
+        return view('client.cart', compact('cart', 'total', 'isEmpty', 'cartLength'));
     }
 
 
@@ -82,18 +110,7 @@ class OffersController extends Controller
 
 
 
-        $companyId = $request->id;
 
-        $rejectedReasons = Rejected_reasons::whereIn('offer_id', function ($query) use ($companyId) {
-            $query->select('id')
-                ->from('offers')
-                ->where('company_id', $companyId);
-        })->get();
-
-
-        return view('admin.pages.company_info', compact(['offers', 'purchases', 'company', 'rejectedReasons']));
-
-    }
 
 
     /**
