@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Payment;  // Asegúrate de importar el modelo Payment
+use App\Models\Payment;
 
 class PaymentController extends Controller
 {
@@ -14,7 +14,7 @@ class PaymentController extends Controller
      */
     public function showPaymentForm()
     {
-        return view('payment.form');  // Asegúrate de que la vista exista
+        return view('payment.form');
     }
 
     /**
@@ -35,7 +35,7 @@ class PaymentController extends Controller
         ]);
 
         try {
-            // Crear un nuevo pago utilizando el modelo Payment
+            // Crea un nuevo pago utilizando el modelo Payment
             $payment = new Payment([
                 'card_number' => $validated['card_number'],
                 'card_holder' => $validated['card_holder'],
