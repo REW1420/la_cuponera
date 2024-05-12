@@ -83,8 +83,8 @@
                             <option value="2" {{ $offer->status_id == 2 ? 'selected' : '' }}>Pendiente</option>
                             <option value="3" {{ $offer->status_id == 3 ? 'selected' : '' }}>Rechazado</option>
                             <option value="4" {{ $offer->status_id == 4 ? 'selected' : '' }}>Descartado</option>
-                            <option value="4" {{ $offer->status_id == 5 ? 'selected' : '' }}>Activo</option>
-                            <option value="4" {{ $offer->status_id == 6 ? 'selected' : '' }}>Vencido</option>
+                            <option value="5" {{ $offer->status_id == 5 ? 'selected' : '' }}>Activo</option>
+                            <option value="6" {{ $offer->status_id == 6 ? 'selected' : '' }}>Vencido</option>
                         </select>
                         <div class="invalid-feedback">Por favor, selecciona un estado.</div>
                     </div>

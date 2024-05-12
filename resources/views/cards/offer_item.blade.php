@@ -18,7 +18,7 @@
                                         <span>{{ $item->coupon_limit_quantity }}</span>
                                     </div>
                                     <div class="mt-1 mb-0 text-muted small">
-                                        <span>TODO</span>
+                                        <span>{{ $item->category_name }}</span>
                                         <span class="text-primary"> </span>
                                         <span></span>
                                         <span class="text-primary"></span>

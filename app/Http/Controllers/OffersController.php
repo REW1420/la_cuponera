@@ -19,9 +19,14 @@ class OffersController extends Controller
 
 
         $id = $request->id;
-        $offers = Offers::get();
+        $offers = Offers::select('offers.*', 'categories.name as category_name')
+            ->join('offerer_companies', 'offers.company_id', '=', 'offerer_companies.id')
+            ->join('categories', 'offerer_companies.category_id', '=', 'categories.id')
+            ->where('offers.status_id', 5)
+            ->get();
+
         $company = Offerer_companies::select('commission')->get();
-        error_log($company);
+
         $purchases = Purchases::join('offers as o', 'purchases.offer_id', '=', 'o.id')
             ->join('offerer_companies as of', 'o.company_id', '=', 'of.id')
             ->where('of.id', $id)

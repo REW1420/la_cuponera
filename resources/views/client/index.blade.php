@@ -18,7 +18,7 @@
 
 
         @include('cards.offer_item', ['offer' => $offers])
-        @include('cards.coupon')
+
 
 
 

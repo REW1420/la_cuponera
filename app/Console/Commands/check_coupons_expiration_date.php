@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Coupons;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class check_coupons_expiration_date extends Command
@@ -26,19 +27,18 @@ class check_coupons_expiration_date extends Command
      */
     public function handle()
     {
-        $coupons = Coupons::all();
+        $now = Carbon::now()->toDateString();
+
+        $coupons = Coupons::where('expiration_date', '<', $now)->where('status_id', 5)->get();
         $count = 0;
+
         foreach ($coupons as $coupon) {
 
-            $endDate = \Carbon\Carbon::parse($coupon->expiration_date)->toDateString();
-
-            if ($endDate === now()->toDateString()) {
-
-                if ($coupon->status_id == 5) {
-                    $coupon->where('id', $coupon->id)->update(['status_id' => 6]);
-                    $count++;
-                }
+            if ($coupon->status_id == 5) {
+                $coupon->where('id', $coupon->id)->update(['status_id' => 6]);
+                $count++;
             }
+
         }
         $this->info($count . ' rows affected');
     }
