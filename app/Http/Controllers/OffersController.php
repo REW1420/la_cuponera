@@ -60,7 +60,6 @@ class OffersController extends Controller
 
 
         return view('admin.pages.company_info', compact(['offers', 'purchases', 'company', 'rejectedReasons']));
-
     }
 
     public function showCart()
@@ -123,11 +122,15 @@ class OffersController extends Controller
         return redirect()->back()->with('success', 'Producto eliminado del carrito.');
     }
 
+    public function myCoupons()
+    {
+        $userId = auth()->id();
+        $myCoupons = Purchases::with('offer')
+            ->where('client_id', $userId)
+            ->get();
 
-
-
-
-
+        return view('client\my_cupons', compact('myCoupons'));
+    }
 
 
     /**

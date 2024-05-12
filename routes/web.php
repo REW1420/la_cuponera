@@ -23,6 +23,7 @@ use App\Http\Controllers\CategoriesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::middleware(['guest'])->group(function () {
     // Rutas de autenticación
     Route::get('/', [AuthController::class, 'showLoginForm']);
@@ -37,7 +38,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/forgot-password', [AuthController::class, 'register_new_client'])->name('forgot_password');
     Route::get('/reset-password/{token}', [AuthController::class, 'reset_password_form'])->middleware('guest')->name('password.reset');
     Route::post('/reset-password', [AuthController::class, 'reset_password'])->middleware('guest')->name('password.update');
-
 });
 
 Route::middleware(['auth', 'role:1'])->group(function () {
@@ -79,7 +79,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/cart/remove/{id}', [OffersController::class, 'removeFromCart'])->name('cart.remove');
     Route::get('/cart/remove-item/{id}', [OffersController::class, 'removeItemFromCart'])->name('cart.remove.item');
     Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
-
+    Route::get('/my-coupons', [OffersController::class, 'myCoupons'])->name('coupons.my');
 });
 
 Route::middleware(['auth', 'role:3'])->group(function () {

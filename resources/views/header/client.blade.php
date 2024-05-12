@@ -13,11 +13,11 @@
                     <a class="nav-link active" aria-current="page" href="/admin/home/offers">Ofertas disponibles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/admin/home">Mis cupones</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('coupons.my') }}">Mis cupones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/cart">Mi carrito <span
-                            class="badge bg-secondary">{{ $cartLength }}</span></a>
+                            class="badge bg-secondary">{{ 0 }}</span></a>
                 </li>
 
                 <li class="nav-item dropdown">
