@@ -17,41 +17,16 @@
         <p class="h2 my-4">Cupones en oferta</p>
 
 
-        <div class="table-responsive">
-            <table id="categoryTable" class="table my-5 table-striped table-centered mb-0">
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Precio Regular</th>
-                        <th>Precio de Oferta</th>
-                        <th>Fecha de Inicio</th>
-                        <th>Fecha de Finalización</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($offers as $offer)
-                        <tr>
-                            <td>{{ $offer->title }}</td>
-                            <td>{{ $offer->regular_price }}</td>
-                            <td>{{ $offer->offer_price }}</td>
-                            <td>{{ $offer->start_date }}</td>
-                            <td>{{ $offer->end_date }}</td>
-                            <td>
-                                <a href="{{ route('cart.add', $offer->id) }}" class="btn btn-primary btn-sm">Agregar al
-                                    Carrito</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+        @include('cards.offer_item', ['offer' => $offers])
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>

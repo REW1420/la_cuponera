@@ -24,7 +24,17 @@ class OffersController extends Controller
             ->where('of.id', $id)
             ->get();
         $cart = session()->get('cart', []);
-        $cartLength = count($cart);
+
+        $quantities = [];
+        foreach ($cart as $item) {
+            if (isset($item['quantity'])) {
+                $quantities[] = $item['quantity'];
+            }
+        }
+
+        $cartLength = array_sum($quantities);
+
+
         return view('client.index', compact('offers', 'purchases', 'company', 'cartLength'));
     }
 
@@ -58,10 +68,17 @@ class OffersController extends Controller
         $cart = session()->get('cart', []);
         $total = 0;
 
-        $cartLength = count($cart);
+        $quantities = [];
+        foreach ($cart as $item) {
+            if (isset($item['quantity'])) {
+                $quantities[] = $item['quantity'];
+            }
+        }
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
         }
+
+        $cartLength = array_sum($quantities);
 
 
         $isEmpty = empty($cart);

@@ -17,6 +17,16 @@
     <div class="container mt-5">
         <h2>Carrito de Compras</h2>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -49,13 +59,19 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-primary"
-            {{ $isEmpty ? 'disabled' : 'data-toggle=modal data-target=#paymentModal' }}>
-            {{ $isEmpty ? 'Carrito Vacío' : 'Realizar Pago' }}
-        </button>
+        @if ($isEmpty)
+            <button type="button" class="btn btn-primary" disabled>Carrito Vacío </button>
+        @else
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                Realizar Pago
+            </button>
+        @endif
+
+
     </div>
 
-    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="indexModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,7 +85,8 @@
                         @csrf
                         <div class="mb-3">
                             <label for="cardNumber" class="form-label">Número de Tarjeta</label>
-                            <input type="text" class="form-control" id="cardNumber" name="card_number" required>
+                            <input max="16" type="text" class="form-control" id="cardNumber" name="card_number"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="cardHolder" class="form-label">Nombre del Titular</label>
