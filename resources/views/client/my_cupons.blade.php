@@ -54,33 +54,32 @@
 <body>
     @include('header.client')
     @include('header.background')
-<div class="container mt-4">
-    <h1 class="mb-4">Mis Cupones</h1>
-    @if ($myCoupons->isEmpty())
-        <div class="alert alert-warning" role="alert">
-            No tienes cupones disponibles.
-        </div>
-    @else
-        <div class="row">
-            @foreach ($myCoupons as $coupon)
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="coupon">
-                        <div class="d-flex">
-                            <div class="p-3 flex-grow-1">
-                                <h5>{{ $coupon->offer->title }}</h5>
-                                <p>{{ $coupon->offer->description }}</p>
+    <div class="container mt-4">
+        <h1>Mis Cupones</h1>
+        @if ($myCoupons->isEmpty())
+            <div class="alert alert-warning">
+                No tienes cupones disponibles.
+            </div>
+        @else
+            <div class="row">
+                @foreach ($myCoupons as $coupon)
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ $coupon->title }} 
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $coupon->description }}</h5>
+                                <p>Precio: ${{ $coupon->offer_price }}</p>
+                      
+                                <p>Válido hasta: {{ $coupon->end_date }}</p>
                             </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Cantidad: {{ $coupon->quantity }}</li>
-                            <li class="list-group-item">Precio: ${{ $coupon->offer->offer_price }}</li>
-                        </ul>
                     </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-</div>
+                @endforeach
+            </div>
+        @endif
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
