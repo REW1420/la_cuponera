@@ -15,6 +15,8 @@ class OffersController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $id = $request->id;
         $offers = Offers::get();
         $company = Offerer_companies::select('commission')->get();

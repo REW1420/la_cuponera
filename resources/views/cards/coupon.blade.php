@@ -39,7 +39,7 @@
 
         <div class="col-sm-6">
             <div
-                class="coupon bg-white rounded my-2 mb-3 d-flex justify-content-between border border-dashed border-dark">
+                class="coupon bg-white rounded my-2 mb-3  d-flex justify-content-between border border-dashed border-dark">
                 <div class="kiri p-3">
                     <div class="icon-container ">
                         <div class="icon-container_box">
