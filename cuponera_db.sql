@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 
 --
 -- Base de datos: `cuponera_db`
---
-
 -- --------------------------------------------------------
 
 --
@@ -328,6 +326,37 @@ INSERT INTO `purchases` (`id`, `client_id`, `offer_id`, `purchase_date`, `create
 (1, 1, 4, '2024-05-04 01:29:52', '2024-05-04 01:29:52', '2024-05-04 01:29:52');
 
 -- --------------------------------------------------------
+CREATE TABLE `payments` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `card_number` varchar(20) NOT NULL,
+  `card_holder` varchar(255) NOT NULL,
+  `card_expiration` date NOT NULL,
+  `card_cvc` varchar(5) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 --
 -- Estructura de tabla para la tabla `rejected_reasons`
