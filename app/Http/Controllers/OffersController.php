@@ -7,6 +7,7 @@ use App\Models\Offers;
 use App\Models\Purchases;
 use App\Models\Rejected_reasons;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OffersController extends Controller
 {
@@ -62,7 +63,6 @@ class OffersController extends Controller
 
 
         return view('admin.pages.company_info', compact(['offers', 'purchases', 'company', 'rejectedReasons']));
-
     }
 
     public function showCart()
@@ -125,11 +125,20 @@ class OffersController extends Controller
         return redirect()->back()->with('success', 'Producto eliminado del carrito.');
     }
 
+    public function myCoupons()
+    {
+        $userId = auth()->id(); // Asegúrate de que el usuario está autenticado
 
+        // Realizar la consulta con Query Builder
+        $myCoupons = DB::table('offers')
+            ->join('purchases', 'offers.id', '=', 'purchases.offer_id')
+            ->join('coupons', 'purchases.id', '=', 'coupons.purchase_id')
+            ->where('coupons.owner_id', '=', $userId)
+            ->select('offers.*', 'purchases.*', 'coupons.*') // Ajusta las columnas según necesites
+            ->get();
 
-
-
-
+        return view('client\my_cupons', compact('myCoupons'));
+    }
 
 
     /**

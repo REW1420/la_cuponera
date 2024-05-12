@@ -19,4 +19,6 @@ class Offers extends Model
         'status',
         'company_id',
     ];
+
+    protected $dates = ['start_date', 'end_date', 'coupon_usage_limit_date'];
 }
