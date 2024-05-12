@@ -26,6 +26,8 @@ class ClientsController extends Controller
             'coupons' => $coupons,
         ];
 
+
+
         return view('admin.pages.client', compact('data'));
     }
 
