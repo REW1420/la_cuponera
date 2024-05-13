@@ -13,6 +13,9 @@
                     <a class="nav-link active" aria-current="page" href="/admin/home">Empresas ofertantes</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin/pages/coupons">Validación de cupón</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/admin/home/categories">Rubros</a>
                 </li>
                 <li class="nav-item">

@@ -15,13 +15,17 @@ class CouponController extends Controller
 
     public function show(Request $request)
     {
+        $request->validate([
+            'coupon_code' => 'required|string|max:255',
+        ]);
+
         $couponCode = $request->input('coupon_code');
 
         // Buscar el cupón por su código único
         $coupon = Coupons::where('unique_code', $couponCode)->first();
 
         if (!$coupon) {
-            return redirect()->route('coupons.index')->with('error', 'El cupón ingresado no es válido.');
+            return redirect()->route('coupons.index')->with('coupon_code_error', 'El código del cupón no existe.');
         }
 
         return view('admin.pages.couponshow', compact('coupon'));
