@@ -66,10 +66,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/admin/offer/update/status', [OffersController::class, 'set_approved_status'])->name('approved.offer');
     Route::post('/admin/offer/create_reason', [Rejected_reasons_Controller::class, 'store'])->name('create.reason');
 
-    //Rutas de validación cupon
-    Route::get('/admin/pages/coupons', [CouponController::class, 'index'])->name('coupons.index');
-    Route::get('/admin/pages/coupons/show', [CouponController::class, 'show'])->name('coupons.show');
-    Route::post('/admin/pages/coupons/redeem', [CouponController::class, 'redeem'])->name('coupons.redeem');
+
 
 });
 
@@ -92,10 +89,11 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:3'])->group(function () {
-    Route::get('/clerk/home', function () {
-        return view('clerk.index');
-    });
 
+    //Rutas de validación cupon
+    Route::get('/clerk/home', [CouponController::class, 'index'])->name('coupons.index');
+    Route::get('/clerk/home/show', [CouponController::class, 'show'])->name('coupons.show');
+    Route::post('/clerk/home/redeem', [CouponController::class, 'redeem'])->name('coupons.redeem');
 });
 
 Route::middleware(['auth', 'role:4'])->group(function () {

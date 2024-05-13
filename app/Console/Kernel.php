@@ -13,16 +13,22 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
 
-        $schedule->command('app:check_offers_expiration_date')->everyMinute()->withoutOverlapping()->onSuccess(function () {
+        $schedule->command('app:check_offers_expiration_date')->daily()->withoutOverlapping()->onSuccess(function () {
             error_log('Offers updated');
         })->onFailure(function () {
             error_log('Offers error');
         });
 
-        $schedule->command('app:check_coupons_expiration_date')->everyMinute()->withoutOverlapping()->onSuccess(function () {
+        $schedule->command('app:check_coupons_expiration_date')->daily()->withoutOverlapping()->onSuccess(function () {
             error_log('Coupons update');
         })->onFailure(function () {
             error_log('Coupons error');
+        });
+
+        $schedule->command('app:app:check_offer_availability')->everyMinute()->withoutOverlapping()->onSuccess(function () {
+            error_log('offer limit update');
+        })->onFailure(function () {
+            error_log('offer limit error');
         });
     }
 

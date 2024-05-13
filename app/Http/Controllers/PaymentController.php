@@ -117,12 +117,13 @@ class PaymentController extends Controller
     private function create_coupon(int $purchase_id, $expiration_date)
     {
         $user = Auth::user();
-        $dui = Clients::select(['dui'])->where('user_id', $user->id)->get();
+        $client = Clients::where('user_id', $user->id)->first();
+        error_log($client->dui);
         $coupon = new Coupons();
         $coupon->unique_code = $this->generate_random_code();
         $coupon->purchase_id = $purchase_id;
         $coupon->owner_id = $user->id;
-        $coupon->owner_dui = $dui;
+        $coupon->owner_dui = $client->dui;
         $coupon->expiration_date = $expiration_date;
         $coupon->save();
     }

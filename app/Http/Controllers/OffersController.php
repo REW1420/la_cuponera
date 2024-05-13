@@ -18,6 +18,7 @@ class OffersController extends Controller
     {
 
 
+
         $id = $request->id;
         $offers = Offers::select('offers.*', 'categories.name as category_name')
             ->join('offerer_companies', 'offers.company_id', '=', 'offerer_companies.id')

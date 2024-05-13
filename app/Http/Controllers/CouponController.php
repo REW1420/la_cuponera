@@ -10,7 +10,7 @@ class CouponController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.coupons');
+        return view('clerk.coupons');
     }
 
     public function show(Request $request)
@@ -28,7 +28,7 @@ class CouponController extends Controller
             return redirect()->route('coupons.index')->with('coupon_code_error', 'El código del cupón no existe.');
         }
 
-        return view('admin.pages.couponshow', compact('coupon'));
+        return view('clerk.couponshow', compact('coupon'));
     }
 
     public function redeem(Request $request)
