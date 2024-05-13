@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\OffererUserController;
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Rejected_reasons_Controller;
@@ -83,15 +84,13 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:3'])->group(function () {
-    Route::get('/offerer/home', function () {
-        return view('offerer.index');
+    Route::get('/clerk/home', function () {
+        return view('clerk.index');
     });
 });
 
 Route::middleware(['auth', 'role:4'])->group(function () {
-    Route::get('/clerk/home', function () {
-        return view('clerk.index');
-    });
+    Route::get('/offerer/home', [OffererUserController::class, 'index']);
 });
 
 
