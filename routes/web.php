@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClerksController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\EmailVerificationController;
@@ -87,11 +88,17 @@ Route::middleware(['auth', 'role:3'])->group(function () {
     Route::get('/clerk/home', function () {
         return view('clerk.index');
     });
+
 });
 
 Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/offerer/home', [OffererUserController::class, 'index']);
+    Route::get('/offerer/home/clerks', [ClerksController::class, 'index']);
+    Route::post('/offerer/home/clerks', [ClerksController::class, 'store'])->name('store.clerk');
+    Route::delete('/offerer/home/clerks/{id}', [ClerksController::class, 'destroy'])->name('destroy.clerk');
+    Route::put('/offerer/home/clerks/{id}', [ClerksController::class, 'update'])->name('update.clerk');
 });
+
 
 
 
