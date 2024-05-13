@@ -139,7 +139,7 @@ class OffersController extends Controller
             ->join('purchases', 'offers.id', '=', 'purchases.offer_id')
             ->join('coupons', 'purchases.id', '=', 'coupons.purchase_id')
             ->where('coupons.owner_id', '=', $userId)
-            ->select('offers.*', 'purchases.*', 'coupons.*') // Ajusta las columnas según necesites
+            ->select('offers.*', 'purchases.*', 'coupons.*')
             ->get();
 
         return view('client\my_cupons', compact('myCoupons'));

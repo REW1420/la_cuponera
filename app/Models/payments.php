@@ -20,6 +20,6 @@ class Payments extends Model
     ];
 
     protected $casts = [
-        'card_expiration' => 'date', // Asegura que la fecha se maneje correctamente
+        'card_expiration' => 'date'
     ];
 }

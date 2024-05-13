@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Send_invoice_Mailable;
 use App\Models\Payments;
+use App\Models\Purchases;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -78,9 +79,24 @@ class PaymentController extends Controller
             if ($payment->save()) {
                 // Redirigir al usuario con un mensaje de éxito
                 $cart = session()->get('cart', []);
+                $purchase = new Purchases([
+                    'user_id' => Auth::id(),
+                    'payment_id' => $payment->id,
+
+                ]);
+
                 $this->send_invoice($cart, $request->input('amount'));
                 session()->put('cart', []);
                 return redirect()->route('home')->with('success', 'Pago procesado correctamente.');
+            }
+            if ($purchases->save()) {
+                // Crear el cupón después de guardar la compra
+                $coupon = new Coupons([
+                    'unique_code' => bin2hex(openssl_random_pseudo_bytes(4)),
+                    'purchase_id' => $purchases->id,
+                    'generation_date' => now(),
+                ]);
+                $coupon->save();
             } else {
                 throw new \Exception('Failed to save the payment.');
             }
@@ -101,5 +117,4 @@ class PaymentController extends Controller
             return false;
         }
     }
-
 }
