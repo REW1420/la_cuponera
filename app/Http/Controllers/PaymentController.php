@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Send_invoice_Mailable;
+use App\Models\Clients;
+use App\Models\Coupons;
+use App\Models\Offers;
 use App\Models\Payments;
 use App\Models\Purchases;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +24,8 @@ class PaymentController extends Controller
      */
     public function showPaymentForm()
     {
+
+
         return view('payment.form');
     }
 
@@ -61,10 +66,7 @@ class PaymentController extends Controller
             'amount' => ['required', 'numeric']
         ], $messages);
 
-        // Verifica si hay errores de validación
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+
 
         try {
             // Crea un nuevo pago utilizando el modelo Payment
@@ -79,32 +81,79 @@ class PaymentController extends Controller
             if ($payment->save()) {
                 // Redirigir al usuario con un mensaje de éxito
                 $cart = session()->get('cart', []);
-                $purchase = new Purchases([
-                    'user_id' => Auth::id(),
-                    'payment_id' => $payment->id,
 
-                ]);
+
+
+                foreach ($cart as $item) {
+                    for ($i = 0; $i < $item['quantity']; $i++) {
+                        $purchase = new Purchases([
+                            'client_id' => Auth::id(),
+                            'offer_id' => $item['id'],
+                        ]);
+                        $purchase->save();
+
+                        $this->create_coupon($purchase->id, $item['expiration_date']);
+                    }
+
+                    $this->remove_offer_item($item['id'], $item['quantity']);
+                }
+
+
+
+
 
                 $this->send_invoice($cart, $request->input('amount'));
-                session()->put('cart', []);
+                session()->forget('cart');
                 return redirect()->route('home')->with('success', 'Pago procesado correctamente.');
             }
-            if ($purchases->save()) {
-                // Crear el cupón después de guardar la compra
-                $coupon = new Coupons([
-                    'unique_code' => bin2hex(openssl_random_pseudo_bytes(4)),
-                    'purchase_id' => $purchases->id,
-                    'generation_date' => now(),
-                ]);
-                $coupon->save();
-            } else {
-                throw new \Exception('Failed to save the payment.');
-            }
+
         } catch (\Exception $e) {
             // Redirigir al usuario con un mensaje de error
             error_log($e->getMessage());
             return back()->with('errorMessage', 'Error procesando el pago: ' . $e->getMessage());
         }
+    }
+
+    private function create_coupon(int $purchase_id, $expiration_date)
+    {
+        $user = Auth::user();
+        $dui = Clients::select(['dui'])->where('user_id', $user->id)->get();
+        $coupon = new Coupons();
+        $coupon->unique_code = $this->generate_random_code();
+        $coupon->purchase_id = $purchase_id;
+        $coupon->owner_id = $user->id;
+        $coupon->owner_dui = $dui;
+        $coupon->expiration_date = $expiration_date;
+        $coupon->save();
+    }
+
+    private function remove_offer_item($offer_id, $quantity)
+    {
+
+        $offer = Offers::find($offer_id);
+
+
+        if ($offer) {
+
+            if ($quantity <= $offer->coupon_limit_quantity) {
+
+                $offer->coupon_limit_quantity -= $quantity;
+                $offer->save();
+                return true;
+            } else {
+
+                return false;
+            }
+        } else {
+
+            return false;
+        }
+    }
+
+
+    private function generate_random_code()
+    {
+        return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 6);
     }
 
     private function send_invoice(array $cart, $total)

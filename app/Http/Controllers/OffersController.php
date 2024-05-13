@@ -73,6 +73,7 @@ class OffersController extends Controller
     public function showCart()
     {
         $cart = session()->get('cart', []);
+
         $total = 0;
 
         $quantities = [];
@@ -103,6 +104,8 @@ class OffersController extends Controller
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
+                'expiration_date' => $offer->end_date,
+                "id" => $offer->id,
                 "title" => $offer->title,
                 "quantity" => 1,
                 "price" => $offer->offer_price
@@ -141,8 +144,17 @@ class OffersController extends Controller
             ->where('coupons.owner_id', '=', $userId)
             ->select('offers.*', 'purchases.*', 'coupons.*')
             ->get();
+        $cart = session()->get('cart', []);
 
-        return view('client\my_cupons', compact('myCoupons'));
+        $quantities = [];
+        foreach ($cart as $item) {
+            if (isset($item['quantity'])) {
+                $quantities[] = $item['quantity'];
+            }
+        }
+
+        $cartLength = array_sum($quantities);
+        return view('client\my_cupons', compact('myCoupons', 'cartLength'));
     }
 
 

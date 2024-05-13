@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    @include('header.client')
+    @include('header.client', ['cartLength' => $cartLength])
     @include('header.background')
 
     <div class="container mt-5">
@@ -19,11 +19,7 @@
 
         @if ($errors->any())
             <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                {{ $errors->first() }}
             </div>
         @endif
 
@@ -32,9 +28,11 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
+                        <th>ID</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Precio</th>
+                        <th>expira</th>
                         <th>Total</th>
                         <th>Acciones</th>
                     </tr>
@@ -42,9 +40,11 @@
                 <tbody>
                     @forelse ($cart as $id => $details)
                         <tr>
+                            <td>{{ $details['id'] }}</td>
                             <td>{{ $details['title'] }}</td>
                             <td>{{ $details['quantity'] }}</td>
                             <td>{{ $details['price'] }}</td>
+                            <td>{{ $details['expiration_date'] }}</td>
                             <td>{{ $details['quantity'] * $details['price'] }}</td>
                             <td>
                                 <a href="{{ route('cart.remove', $id) }}" class="btn btn-danger btn-sm">Quitar Uno</a>

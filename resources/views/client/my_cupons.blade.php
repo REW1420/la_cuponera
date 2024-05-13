@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    @include('header.client')
+    @include('header.client', ['cartLength' => $cartLength])
     @include('header.background')
     <div class="container mt-4">
         <h1>Mis Cupones</h1>
