@@ -62,18 +62,15 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
     // Rutas de ofertas
     Route::put('/offer/update/{id}', [OffersController::class, 'update'])->name('update.offer');
-<<<<<<< HEAD
     Route::get('/admin/home/offers', [OffersController::class, 'get_offers_by_status_waiting'])->name('offer.index');
     Route::post('/admin/offer/update/status', [OffersController::class, 'set_approved_status'])->name('approved.offer');
     Route::post('/admin/offer/create_reason', [Rejected_reasons_Controller::class, 'store'])->name('create.reason');
-=======
 
     //Rutas de validación cupon
     Route::get('/admin/pages/coupons', [CouponController::class, 'index'])->name('coupons.index');
     Route::get('/admin/pages/coupons/show', [CouponController::class, 'show'])->name('coupons.show');
     Route::post('/admin/pages/coupons/redeem', [CouponController::class, 'redeem'])->name('coupons.redeem');
 
->>>>>>> panel/dependiente-sucursal
 });
 
 

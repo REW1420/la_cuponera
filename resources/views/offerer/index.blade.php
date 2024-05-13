@@ -22,7 +22,7 @@ $a = '';
 
         <div class="d-flex justify-content-between align-items-center">
             <p class="h2 my-4">Gestion de empresas</p>
-            <a href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
+
         </div>
         <div class="d-flex justify-content-between align-items-center">
             <p class="h2 my-4">Empresa: {{ $company->name }}</p>
