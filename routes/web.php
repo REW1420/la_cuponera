@@ -6,6 +6,7 @@ use App\Http\Controllers\OffersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CouponController;
 
 
 
@@ -52,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     // Rutas de ofertas
     Route::put('/offer/update/{id}', [OffersController::class, 'update'])->name('update.offer');
 
+    //Rutas de validación cupon
+    Route::get('/admin/pages/coupons', [CouponController::class, 'index'])->name('coupons.index');
+    Route::get('/admin/pages/coupons/show', [CouponController::class, 'show'])->name('coupons.show');
+    Route::post('/admin/pages/coupons/redeem', [CouponController::class, 'redeem'])->name('coupons.redeem');
 
 });
 

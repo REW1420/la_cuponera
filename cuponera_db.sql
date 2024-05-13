@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2024 a las 01:26:00
+-- Tiempo de generación: 07-05-2024 a las 06:16:12
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,22 +39,17 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(4, 'aa', '2024-05-01 17:06:31', '2024-05-01 17:06:31'),
-(5, 'a', '2024-05-01 17:06:46', '2024-05-01 17:06:46'),
-(6, 'a', '2024-05-01 17:07:03', '2024-05-01 17:07:03'),
-(7, 'a', '2024-05-01 17:07:07', '2024-05-01 17:07:07'),
-(8, 'a', '2024-05-01 17:07:15', '2024-05-01 17:07:15'),
-(10, 'test', '2024-05-01 23:57:47', '2024-05-01 23:57:47'),
-(11, 'test', '2024-05-01 23:57:47', '2024-05-01 23:57:47'),
-(12, 'b', '2024-05-02 00:07:20', '2024-05-02 00:07:20'),
-(13, 'asdas', '2024-05-02 00:14:48', '2024-05-02 00:14:48'),
-(15, 'a', '2024-05-02 11:06:40', '2024-05-02 11:06:40'),
-(16, 'a', '2024-05-02 11:06:41', '2024-05-02 11:06:41'),
-(17, 'a', '2024-05-02 11:06:42', '2024-05-02 11:06:42'),
-(18, 'a', '2024-05-02 11:06:42', '2024-05-02 11:06:42'),
-(19, 'aaas', '2024-05-02 11:06:42', '2024-05-03 00:25:08'),
 (22, 'Restaurante', '2024-05-03 06:55:28', '2024-05-03 06:55:28'),
-(23, 'Compañia 1', '2024-05-03 07:14:35', '2024-05-03 07:14:35');
+(24, 'Alimentación', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(25, 'Tecnología', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(26, 'Salud y bienestar', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(27, 'Moda y accesorios', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(28, 'Construcción', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(29, 'Educación', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(30, 'Entretenimiento', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(31, 'Finanzas y seguros', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(32, 'Agricultura', '2024-05-05 19:52:56', '2024-05-05 19:52:56'),
+(33, 'Automoción', '2024-05-05 19:52:56', '2024-05-05 19:52:56');
 
 -- --------------------------------------------------------
 
@@ -68,9 +63,18 @@ CREATE TABLE `clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `dui` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `clients`
+--
+
+INSERT INTO `clients` (`id`, `phone`, `created_at`, `updated_at`, `user_id`, `dui`) VALUES
+(1, '12345678', NULL, NULL, 18, '12345678'),
+(2, '0000000', '2024-05-06 06:09:20', '2024-05-06 06:09:20', 22, '000000'),
+(3, '100000', '2024-05-07 07:35:05', '2024-05-07 07:35:05', 23, '00'),
+(4, '11', '2024-05-07 07:41:39', '2024-05-07 07:41:39', 24, '000');
 
 -- --------------------------------------------------------
 
@@ -80,12 +84,26 @@ CREATE TABLE `clients` (
 
 CREATE TABLE `coupons` (
   `id` int(10) UNSIGNED NOT NULL,
+  `is_redeemed` tinyint(1) NOT NULL DEFAULT 0,
   `unique_code` varchar(20) NOT NULL,
   `purchase_id` int(10) UNSIGNED NOT NULL,
   `generation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `owner_id` int(10) UNSIGNED NOT NULL,
+  `owner_dui` varchar(255) NOT NULL,
+  `expiration_date` timestamp NULL DEFAULT NULL,
+  `status_id` int(10) UNSIGNED NOT NULL DEFAULT 5
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `is_redeemed`, `unique_code`, `purchase_id`, `generation_date`, `created_at`, `updated_at`, `owner_id`, `owner_dui`, `expiration_date`, `status_id`) VALUES
+(1, 0, 'ABCABC', 1, '2024-05-04 01:31:21', '2024-05-04 01:31:21', '2024-05-04 01:31:21', 1, '', '2024-07-12 05:09:28', 5),
+(2, 0, 'ABC2', 1, '2024-05-05 19:21:39', NULL, '2024-05-06 01:29:20', 1, '111', '2024-05-05 06:00:00', 6),
+(4, 1, 'ABC3', 1, '2024-05-05 19:21:58', NULL, NULL, 1, '111', '2024-04-05 06:00:00', 5);
 
 -- --------------------------------------------------------
 
@@ -136,7 +154,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2024_05_03_182435_add_foreing_key_clients_table', 4),
 (22, '2024_05_03_184228_update_offer_statuses_table', 5),
 (23, '2024_05_03_185518_update_offer_table', 6),
-(24, '2024_05_03_185551_add_foreing_key_offers_table', 7);
+(24, '2024_05_03_185551_add_foreing_key_offers_table', 7),
+(25, '2024_05_05_032115_alter_coupon_table', 8),
+(27, '2024_05_05_032531_alter_coupon_table', 9),
+(29, '2024_05_05_032828_add_foreing_key_coupon_table', 10),
+(30, '2024_05_05_043941_add_colunm_coupons_table', 11),
+(31, '2024_05_05_045113_alter_name_offer_statuses_statuses', 12),
+(32, '2024_05_05_045313_alter_coupons_table', 13),
+(33, '2024_05_05_045500_add_foreing_key_coupons_table', 14);
 
 -- --------------------------------------------------------
 
@@ -163,7 +188,8 @@ CREATE TABLE `offerer_companies` (
 --
 
 INSERT INTO `offerer_companies` (`id`, `name`, `code`, `address`, `contact_name`, `phone`, `email`, `category_id`, `commission`, `created_at`, `updated_at`) VALUES
-(14, 'William Ernesto', 'SOA032', 'Soyapango, prados 4 casa 6 psj 6', 'William Ernesto Ramos Valladares', '+50372664125', 's@gmail.com', 22, 10.20, '2024-05-03 23:20:42', '2024-05-04 00:01:53');
+(14, 'William Ernesto', 'SOA032', 'Soyapango, prados 4 casa 6 psj 6', 'William', '72664125', 'werramos1420@gmail.com', 22, 10.20, '2024-05-03 23:20:42', '2024-05-06 05:16:42'),
+(17, 'empresa pruebas', 'SPE183', 'asdasdasda', 'empresa prueba', '76208038', 'cuido2022@gmail.com', 32, 0.20, '2024-05-06 05:21:30', '2024-05-06 05:21:30');
 
 -- --------------------------------------------------------
 
@@ -193,33 +219,10 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `title`, `regular_price`, `offer_price`, `start_date`, `end_date`, `coupon_usage_limit_date`, `coupon_limit_quantity`, `description`, `other_details`, `company_id`, `created_at`, `updated_at`, `status_id`) VALUES
-(4, 'Camiseta de algodón 2', 20.00, 15.99, '2024-05-05', '2024-05-15', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:05', '2024-05-04 04:33:34', 4),
+(4, 'Camiseta de algodón 2', 20.00, 15.99, '2024-05-05', '2024-05-05', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:05', '2024-05-05 08:19:24', 6),
 (5, 'Zapatos deportivos', 50.00, 39.99, '2024-05-10', '2024-05-25', '2024-05-30', 50, 'Zapatos deportivos para correr con tecnología de amortiguación avanzada', 'Disponible en tallas del 36 al 45', 14, '2024-05-03 20:18:05', '2024-05-03 20:18:05', 2),
 (6, 'Cámara digital', 299.99, 249.99, '2024-05-08', '2024-05-20', '2024-05-26', 30, 'Cámara digital de alta resolución con pantalla táctil', 'Incluye estuche y tarjeta de memoria de 32GB', 14, '2024-05-03 20:18:05', '2024-05-04 04:37:17', 3),
 (9, 'Camiseta de algodón 22s', 20.00, 15.99, '2024-05-05', '2024-05-15', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:50', '2024-05-04 04:33:28', 2);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `offer_statuses`
---
-
-CREATE TABLE `offer_statuses` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `offer_statuses`
---
-
-INSERT INTO `offer_statuses` (`id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'APPROVED', NULL, NULL),
-(2, 'PENDING', NULL, NULL),
-(3, 'REJECTED', NULL, NULL),
-(4, 'DISCARDED', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,6 +270,13 @@ CREATE TABLE `purchases` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `client_id`, `offer_id`, `purchase_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, '2024-05-04 01:29:52', '2024-05-04 01:29:52', '2024-05-04 01:29:52');
+
 -- --------------------------------------------------------
 
 --
@@ -293,6 +303,31 @@ INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `statuses`
+--
+
+CREATE TABLE `statuses` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'APPROVED', NULL, NULL),
+(2, 'PENDING', NULL, NULL),
+(3, 'REJECTED', NULL, NULL),
+(4, 'DISCARDED', NULL, NULL),
+(5, 'ACTIVE', NULL, NULL),
+(6, 'EXPIRED', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -313,11 +348,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'cliente', 'cliente@c.com', NULL, 'cliente', 2, NULL, NULL, NULL),
-(2, 'admin', 'admin@c.com', NULL, 'admin', 1, NULL, NULL, NULL),
-(3, 'oferta', 'oferta@c.com', NULL, 'oferta', 4, NULL, NULL, NULL),
-(4, 'empleado', 'empleado@c.com', NULL, 'empleado', 3, NULL, NULL, NULL),
-(18, 'William Ernesto Ramos Valladares', 's@gmail.com', NULL, '$2y$12$WJ1sjbvB6s6aK6gZAs3ameFSPkhQkeFKvn.4/FYl/F36fsqrtr1p2', 4, '2024-05-03 23:20:43', '2024-05-04 00:01:53', NULL);
+(1, 'cliente', 'cliente@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 2, NULL, NULL, NULL),
+(2, 'admin', 'admin@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 1, NULL, NULL, NULL),
+(3, 'oferta', 'oferta@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 4, NULL, NULL, NULL),
+(4, 'empleado', 'empleado@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 3, NULL, NULL, NULL),
+(18, 'William Ernesto Ramos Valladares', 'werramos1420@gmail.com', NULL, '$2y$12$WJ1sjbvB6s6aK6gZAs3ameFSPkhQkeFKvn.4/FYl/F36fsqrtr1p2', 4, '2024-05-03 23:20:43', '2024-05-06 05:16:42', NULL),
+(21, 'empresa prueba', 'cuido2022@gmail.com', NULL, '$2y$12$qG5eV4qbq9Lj8y3yDx9cz.6wCtVwOSPPhWjs6WCKPVimM2kjju.wK', 4, '2024-05-06 05:21:30', '2024-05-06 07:17:55', 'YbVL4e4bh1iRkS7kJ9w2CWHwLqKPA2wFcJzJJnpRdCXfXyBUgFZgzNnQOrtK'),
+(22, 'will', 'will@gmail.com', NULL, '$2y$12$hq8CSZX/xAYy/SzBW0IFe.uurFIBdbk0vDEOttnhu8fY44IKyDZoe', 2, '2024-05-06 06:09:20', '2024-05-06 07:29:09', 'dwLL7a95hba28t1syNog51dqdWheGjiBVYiZra3xi1aKC36g3G4VwZAoSYMx'),
+(23, 'will', 'awill@gmail.com', NULL, '$2y$12$pr3i7Z63efdpFdct3s5GvuW9is4xzL0ynlfThRtDOB7hM/cyFea.W', 2, '2024-05-07 07:35:05', '2024-05-07 07:35:05', NULL),
+(24, 'will', 'swill@gmail.com', NULL, '$2y$12$wkmXJv95Z17aODwTQpNM5eDeHjwGCYyUYvSHzvLzaMABSg.D8NCFi', 2, '2024-05-07 07:41:39', '2024-05-07 07:41:39', NULL),
+(25, 'will', 's@c.com', '2024-05-07 09:37:35', '$2y$12$15MTkL4BVEUZuM0vyfqXPeoB4M2HNEiOVLpLki9xvPN9olwirmIzy', 2, '2024-05-07 09:36:21', '2024-05-07 09:37:35', NULL),
+(26, 'will', 'a@c.com', NULL, '$2y$12$PRoXPeDZwAVGe.VXiaD8Te.bhHaqYfjkAebOjS7jFAdeDujR.vUT2', 2, '2024-05-07 09:38:42', '2024-05-07 09:38:42', NULL),
+(27, 'will', 'aa@c.com', NULL, '$2y$12$T.BcZkZCCwfSFpmws.tQru1A7Bsuf/fmVJBBTnTDOaikox4P0TALi', 2, '2024-05-07 09:41:04', '2024-05-07 09:41:04', NULL),
+(28, 'will', 'aaa@c.com', NULL, '$2y$12$IMn.SZ4WRKUT7uruf1s.h.vpURcso2gnKn5mFjO.c0vyx6YNVWS/.', 2, '2024-05-07 09:52:30', '2024-05-07 09:52:30', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -342,7 +385,9 @@ ALTER TABLE `clients`
 ALTER TABLE `coupons`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `coupons_unique_code_unique` (`unique_code`),
-  ADD KEY `coupons_purchase_id_foreign` (`purchase_id`);
+  ADD KEY `coupons_purchase_id_foreign` (`purchase_id`),
+  ADD KEY `coupons_owner_id_foreign` (`owner_id`),
+  ADD KEY `coupons_status_id_foreign` (`status_id`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -374,12 +419,6 @@ ALTER TABLE `offers`
   ADD KEY `offers_status_id_foreign` (`status_id`);
 
 --
--- Indices de la tabla `offer_statuses`
---
-ALTER TABLE `offer_statuses`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -409,6 +448,12 @@ ALTER TABLE `roles`
   ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
+-- Indices de la tabla `statuses`
+--
+ALTER TABLE `statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -424,19 +469,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -448,25 +493,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `offerer_companies`
 --
 ALTER TABLE `offerer_companies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `offers`
 --
 ALTER TABLE `offers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `offer_statuses`
---
-ALTER TABLE `offer_statuses`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -478,7 +517,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -487,10 +526,16 @@ ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `statuses`
+--
+ALTER TABLE `statuses`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas
@@ -506,7 +551,9 @@ ALTER TABLE `clients`
 -- Filtros para la tabla `coupons`
 --
 ALTER TABLE `coupons`
-  ADD CONSTRAINT `coupons_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`);
+  ADD CONSTRAINT `coupons_owner_id_foreign` FOREIGN KEY (`owner_id`) REFERENCES `clients` (`id`),
+  ADD CONSTRAINT `coupons_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`),
+  ADD CONSTRAINT `coupons_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`);
 
 --
 -- Filtros para la tabla `offerer_companies`
@@ -519,7 +566,7 @@ ALTER TABLE `offerer_companies`
 --
 ALTER TABLE `offers`
   ADD CONSTRAINT `offers_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `offerer_companies` (`id`),
-  ADD CONSTRAINT `offers_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `offer_statuses` (`id`);
+  ADD CONSTRAINT `offers_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`);
 
 --
 -- Filtros para la tabla `purchases`
