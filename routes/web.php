@@ -82,7 +82,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/my-coupons', [OffersController::class, 'myCoupons'])->name('coupons.my');
 });
 
-Route::middleware(['auth', 'role:3'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/offerer/home', function () {
         return view('offerer.index');
     });
