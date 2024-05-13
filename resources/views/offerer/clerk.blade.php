@@ -8,7 +8,7 @@ $a = '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de CO. {{ $company->name }}</title>
+    <title>Gestion de usuarios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -22,97 +22,98 @@ $a = '';
 
         <div class="d-flex justify-content-between align-items-center">
             <p class="h2 my-4">Gestion de empresas</p>
-            <a href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
+
         </div>
         <div class="d-flex justify-content-between align-items-center">
-            <p class="h2 my-4">Empresa: {{ $company->name }}</p>
-            <a href="/logout"><button type="button" class="btn btn-primary">Añadir cupon nuevo</button></a>
+            <p class="h2 my-4">Empresa: </p>
+
+            <button data-bs-toggle="modal" data-bs-target="#createModal" type="button" class="btn btn-primary">Crear
+                nuevo dependiente de
+                sucursal</button>
+
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-
-
         <!-- Table -->
         <div class="table-responsive">
             <table id="categoryTable" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Titulo</th>
-                        <th>Precio regular</th>
-                        <th>Precio en oferta</th>
-                        <th>Finaliza</th>
-                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Admin</th>
+                        <th>Creado </th>
+
+                        <th>Ultima actualizacion</th>
+
                         <th>Opciones</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($offers as $offer)
+                    @foreach ($clerks as $clerk)
                         <tr>
-                            <td>{{ $offer->id }}</td>
-                            <td>{{ $offer->title }}</td>
-                            <td>{{ $offer->regular_price }}</td>
-                            <td>{{ $offer->offer_price }}</td>
-                            <td>{{ $offer->end_date }}</td>
-                            <td>
-                                @if ($offer->status_id == 1)
-                                    <span
-                                        class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Aprovado</span>
-                                @elseif($offer->status_id == 2)
-                                    <span
-                                        class="badge bg-info-subtle border border-info-subtle text-info-emphasis rounded-pill">Pendiente</span>
-                                @elseif($offer->status_id == 3)
-                                    <span
-                                        class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">Rechazado</span>
-                                @elseif($offer->status_id == 4)
-                                    <span
-                                        class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Descartado</span>
-                                @elseif($offer->status_id == 5)
-                                    <span
-                                        class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Activo</span>
-                                @elseif($offer->status_id == 6)
-                                    <span
-                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Vencido</span>
-                                @else
-                                    <span
-                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill">Desconocido</span>
-                                @endif
+                            <td>{{ $clerk->id }}</td>
+                            <td>{{ $clerk->name }}</td>
+                            <td>{{ $clerk->email }}</td>
+                            @if ($clerk->email === $clerk->adminEmail)
+                                <td>Si</td>
+                            @else
+                                <td>No</td>
+                            @endif
+
+                            <td> {{ \Carbon\Carbon::parse($clerk->created_at)->format('d/m/Y') }}</td>
+                            <td> {{ \Carbon\Carbon::parse($clerk->updated_at)->format('d/m/Y') }}</td>
+
+
+
 
                             </td>
 
                             <td>
                                 <div class="d-flex flex-row mb-3">
+
+
+
                                     <div>
                                         <a href="#" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#indexModal{{ $offer->id }}">
-                                            <i style="color: green" class="material-icons">Ver</i>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $offer->id }}">
+                                            data-bs-target="#editModal{{ $clerk->id }}">
                                             <i class="material-icons text-warning">Editar</i>
                                         </a>
                                     </div>
-
+                                    @if ($clerk->email === $clerk->adminEmail)
+                                    @else
+                                        <div>
+                                            <a href="#" class="btn" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ $clerk->id }}">
+                                                <i class="material-icons text-danger">Eliminar</i>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </td>
 
 
 
                         </tr>
-                        @include('modals.company.offer.edit')
-                        @include('modals.company.offer.index', [
-                            'purchase',
-                            $purchases,
-                            $company,
-                            'reasons' => $rejectedReasons,
-                        ])
+                        @include('modals.offer.clerk.delete')
+                        @include('modals.offer.clerk.edit')
                     @endforeach
                 </tbody>
             </table>
@@ -123,6 +124,7 @@ $a = '';
     </div>
 
 
+    @include('modals.offer.clerk.create', ['company_id' => $company_id])
 
 
 

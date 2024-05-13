@@ -10,7 +10,7 @@ use App\Models\Categories;
 use App\Models\Offerer_companies;
 use Illuminate\Http\Request;
 
-use App\Mail\Cuido2022;
+
 use Illuminate\Support\Facades\Mail;
 
 class CompaniesController extends Controller
