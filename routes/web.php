@@ -93,6 +93,7 @@ Route::middleware(['auth', 'role:3'])->group(function () {
 
 Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/offerer/home', [OffererUserController::class, 'index']);
+    Route::post('/offerer/create-offert', [OffererUserController::class, 'create_offert'])->name('store.create.offert');
     Route::get('/offerer/home/clerks', [ClerksController::class, 'index']);
     Route::post('/offerer/home/clerks', [ClerksController::class, 'store'])->name('store.clerk');
     Route::delete('/offerer/home/clerks/{id}', [ClerksController::class, 'destroy'])->name('destroy.clerk');

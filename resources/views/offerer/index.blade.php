@@ -20,13 +20,10 @@ $a = '';
     @include('header.background')
     <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <p class="h2 my-4">Gestion de empresas</p>
-            <a href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
-        </div>
+          <p class="h2 my-4">Gestion de empresas</p>
         <div class="d-flex justify-content-between align-items-center">
             <p class="h2 my-4">Empresa: {{ $company->name }}</p>
-            <a href="/logout"><button type="button" class="btn btn-primary">Añadir cupon nuevo</button></a>
+            <button data-bs-toggle="modal" data-bs-target="#addOfferModal" type="button" class="btn btn-primary">Añadir nueva oferta</button>
         </div>
 
         @if (session('success'))
@@ -124,11 +121,7 @@ $a = '';
 
 
 
-
-
-
-
-
+    @include('modals.offer.add_offer', ['company_id' => $company->id])
 
 
 
