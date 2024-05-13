@@ -33,4 +33,23 @@ class OffererUserController extends Controller
 
         return view('offerer.index', compact('user', 'company', 'offers', 'purchases', 'rejectedReasons'));
     }
+
+    public function create_offert(Request $request) {
+        $offer = new Offers();
+
+        $offer->title = $request->title;
+        $offer->regular_price = $request->regular_price;
+        $offer->offer_price = $request->offer_price;
+        $offer->start_date = $request->start_date;
+        $offer->end_date = $request->finish_date;
+        $offer->coupon_usage_limit_date = $request->limit_date;
+        $offer->coupon_limit_quantity = $request->coupon_quantity;
+        $offer->description = $request->description;
+        $offer->other_details = $request->other_details;
+        $offer->company_id = $request->company_id;
+        $offer->status_id = 2;
+        $offer->save();
+
+        return back()->with(['success' => 'Oferta creada']);
+    }
 }
