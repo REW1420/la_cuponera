@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 10-05-2024 a las 06:29:14
+=======
+-- Tiempo de generación: 07-05-2024 a las 06:16:12
+>>>>>>> panel/dependiente-sucursal
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,14 +67,19 @@ CREATE TABLE `clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+<<<<<<< HEAD
   `dui` varchar(10) NOT NULL,
   `address` varchar(255) NOT NULL
+=======
+  `dui` varchar(10) NOT NULL
+>>>>>>> panel/dependiente-sucursal
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `clients`
 --
 
+<<<<<<< HEAD
 INSERT INTO `clients` (`id`, `phone`, `created_at`, `updated_at`, `user_id`, `dui`, `address`) VALUES
 (1, '12345678', NULL, NULL, 18, '12345678', ''),
 (2, '0000000', '2024-05-06 06:09:20', '2024-05-06 06:09:20', 22, '000000', ''),
@@ -89,6 +98,13 @@ INSERT INTO `clients` (`id`, `phone`, `created_at`, `updated_at`, `user_id`, `du
 (15, '11', '2024-05-08 07:02:07', '2024-05-08 07:02:07', 39, '11', ''),
 (16, '11', '2024-05-08 07:02:41', '2024-05-08 07:02:41', 40, '12', ''),
 (17, '12345678', '2024-05-08 09:58:22', '2024-05-08 09:58:22', 41, '111111111', '');
+=======
+INSERT INTO `clients` (`id`, `phone`, `created_at`, `updated_at`, `user_id`, `dui`) VALUES
+(1, '12345678', NULL, NULL, 18, '12345678'),
+(2, '0000000', '2024-05-06 06:09:20', '2024-05-06 06:09:20', 22, '000000'),
+(3, '100000', '2024-05-07 07:35:05', '2024-05-07 07:35:05', 23, '00'),
+(4, '11', '2024-05-07 07:41:39', '2024-05-07 07:41:39', 24, '000');
+>>>>>>> panel/dependiente-sucursal
 
 -- --------------------------------------------------------
 
@@ -108,6 +124,7 @@ CREATE TABLE `coupons` (
   `owner_dui` varchar(255) NOT NULL,
   `expiration_date` timestamp NULL DEFAULT NULL,
   `status_id` int(10) UNSIGNED NOT NULL DEFAULT 5
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -150,6 +167,18 @@ INSERT INTO `email_verifications` (`id`, `user_id`, `token`, `created_at`, `upda
 (10, 3, 'qpZSqpm9nVxHR7OMadQHlrkFxriE6SlHOl8NcnfLcG3MsyOofUWFFvbHvRCN', '2024-05-09 10:13:14', '2024-05-09 10:13:14'),
 (11, 1, 'HoLh3S28DVCDd9W7HMuVlh2aWD4FJstnOOp61gEC9hcHcGe8onvjZqsUlzPu', '2024-05-09 10:58:23', '2024-05-09 10:58:23'),
 (12, 22, 'SzQ1upCuYI6VqdJty3n7XOjN65wREYCIDTs63VKGKrosVTrZaxNR9hPduInj', '2024-05-10 10:14:02', '2024-05-10 10:14:02');
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `is_redeemed`, `unique_code`, `purchase_id`, `generation_date`, `created_at`, `updated_at`, `owner_id`, `owner_dui`, `expiration_date`, `status_id`) VALUES
+(1, 0, 'ABCABC', 1, '2024-05-04 01:31:21', '2024-05-04 01:31:21', '2024-05-04 01:31:21', 1, '', '2024-07-12 05:09:28', 5),
+(2, 0, 'ABC2', 1, '2024-05-05 19:21:39', NULL, '2024-05-06 01:29:20', 1, '111', '2024-05-05 06:00:00', 6),
+(4, 1, 'ABC3', 1, '2024-05-05 19:21:58', NULL, NULL, 1, '111', '2024-04-05 06:00:00', 5);
+>>>>>>> panel/dependiente-sucursal
 
 -- --------------------------------------------------------
 
@@ -207,11 +236,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (30, '2024_05_05_043941_add_colunm_coupons_table', 11),
 (31, '2024_05_05_045113_alter_name_offer_statuses_statuses', 12),
 (32, '2024_05_05_045313_alter_coupons_table', 13),
+<<<<<<< HEAD
 (33, '2024_05_05_045500_add_foreing_key_coupons_table', 14),
 (34, '2024_05_07_163917_create_email_verifications_table', 15),
 (35, '2024_05_08_040425_alter_clients_table', 16),
 (36, '2024_05_08_050514_create_rejected_reason_table', 17),
 (37, '2024_05_08_050649_add_foreing_key_rejected_reason_table', 18);
+=======
+(33, '2024_05_05_045500_add_foreing_key_coupons_table', 14);
+>>>>>>> panel/dependiente-sucursal
 
 -- --------------------------------------------------------
 
@@ -270,9 +303,15 @@ CREATE TABLE `offers` (
 
 INSERT INTO `offers` (`id`, `title`, `regular_price`, `offer_price`, `start_date`, `end_date`, `coupon_usage_limit_date`, `coupon_limit_quantity`, `description`, `other_details`, `company_id`, `created_at`, `updated_at`, `status_id`) VALUES
 (4, 'Camiseta de algodón 2', 20.00, 15.99, '2024-05-05', '2024-05-05', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:05', '2024-05-05 08:19:24', 6),
+<<<<<<< HEAD
 (5, 'Zapatos deportivos', 50.00, 39.99, '2024-05-10', '2024-05-25', '2024-05-30', 50, 'Zapatos deportivos para correr con tecnología de amortiguación avanzada', 'Disponible en tallas del 36 al 45', 14, '2024-05-03 20:18:05', '2024-05-09 09:37:02', 2),
 (6, 'Cámara digital', 299.99, 249.99, '2024-05-08', '2024-05-20', '2024-05-26', 30, 'Cámara digital de alta resolución con pantalla táctil', 'Incluye estuche y tarjeta de memoria de 32GB', 14, '2024-05-03 20:18:05', '2024-05-04 04:37:17', 3),
 (9, 'Camiseta de algodón 22s', 20.00, 15.99, '2024-05-05', '2024-05-15', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:50', '2024-05-09 09:20:30', 3);
+=======
+(5, 'Zapatos deportivos', 50.00, 39.99, '2024-05-10', '2024-05-25', '2024-05-30', 50, 'Zapatos deportivos para correr con tecnología de amortiguación avanzada', 'Disponible en tallas del 36 al 45', 14, '2024-05-03 20:18:05', '2024-05-03 20:18:05', 2),
+(6, 'Cámara digital', 299.99, 249.99, '2024-05-08', '2024-05-20', '2024-05-26', 30, 'Cámara digital de alta resolución con pantalla táctil', 'Incluye estuche y tarjeta de memoria de 32GB', 14, '2024-05-03 20:18:05', '2024-05-04 04:37:17', 3),
+(9, 'Camiseta de algodón 22s', 20.00, 15.99, '2024-05-05', '2024-05-15', '2024-05-20', 100, 'Camiseta de algodón de alta calidad en varios colores', 'Tallas disponibles: S, M, L', 14, '2024-05-03 20:18:50', '2024-05-04 04:33:28', 2);
+>>>>>>> panel/dependiente-sucursal
 
 -- --------------------------------------------------------
 
@@ -327,6 +366,7 @@ CREATE TABLE `purchases` (
 INSERT INTO `purchases` (`id`, `client_id`, `offer_id`, `purchase_date`, `created_at`, `updated_at`) VALUES
 (1, 1, 4, '2024-05-04 01:29:52', '2024-05-04 01:29:52', '2024-05-04 01:29:52');
 
+<<<<<<< HEAD
 -- --------------------------------------------------------
 
 --
@@ -349,6 +389,8 @@ INSERT INTO `rejected_reasons` (`id`, `offer_id`, `reason`, `created_at`, `updat
 (1, 5, 'Esaa asdas asasfawaf asfasfas asfasfa asasf asasf', '2024-05-09 09:13:51', '2024-05-09 09:13:51'),
 (2, 9, 'aaaa', '2024-05-09 09:20:30', '2024-05-09 09:20:30');
 
+=======
+>>>>>>> panel/dependiente-sucursal
 -- --------------------------------------------------------
 
 --
@@ -420,6 +462,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `created_at`, `updated_at`, `remember_token`) VALUES
+<<<<<<< HEAD
 (1, 'cliente', 'cliente@c.com', '2024-05-09 10:58:31', '$2y$12$TyskjCt4QL1huJ74MhbYBuA2VcoGWNZwpcbspbsrJP2pDEOC9SPny', 2, NULL, '2024-05-09 10:58:31', NULL),
 (2, 'admins', 'admin@c.com', '2024-05-08 07:00:10', '$2y$12$TyskjCt4QL1huJ74MhbYBuA2VcoGWNZwpcbspbsrJP2pDEOC9SPny', 1, NULL, '2024-05-09 10:54:14', NULL),
 (3, 'oferta', 'oferta@c.com', '2024-05-09 10:13:33', '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 4, NULL, '2024-05-09 10:13:33', NULL),
@@ -427,11 +470,21 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (18, 'William Ernesto Ramos Valladares', 'werramos1420@gmail.com', NULL, '$2y$12$WJ1sjbvB6s6aK6gZAs3ameFSPkhQkeFKvn.4/FYl/F36fsqrtr1p2', 4, '2024-05-03 23:20:43', '2024-05-06 05:16:42', NULL),
 (21, 'empresa prueba', 'cuido2022@gmail.com', NULL, '$2y$12$qG5eV4qbq9Lj8y3yDx9cz.6wCtVwOSPPhWjs6WCKPVimM2kjju.wK', 4, '2024-05-06 05:21:30', '2024-05-06 07:17:55', 'YbVL4e4bh1iRkS7kJ9w2CWHwLqKPA2wFcJzJJnpRdCXfXyBUgFZgzNnQOrtK'),
 (22, 'will', 'will@gmail.com', '2024-05-10 10:14:22', '$2y$12$hq8CSZX/xAYy/SzBW0IFe.uurFIBdbk0vDEOttnhu8fY44IKyDZoe', 2, '2024-05-06 06:09:20', '2024-05-10 10:14:22', '4gPW8mAmpFbkrNE6K1L1RwiYQK5GotErMCxbO1Dn6GSenfrCr4xkrtaWDgTD'),
+=======
+(1, 'cliente', 'cliente@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 2, NULL, NULL, NULL),
+(2, 'admin', 'admin@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 1, NULL, NULL, NULL),
+(3, 'oferta', 'oferta@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 4, NULL, NULL, NULL),
+(4, 'empleado', 'empleado@c.com', NULL, '$2y$12$roelIopbwppkcKcVLhuAROv9GOzKG220ItInHpN7nKrLedYOr9a/S', 3, NULL, NULL, NULL),
+(18, 'William Ernesto Ramos Valladares', 'werramos1420@gmail.com', NULL, '$2y$12$WJ1sjbvB6s6aK6gZAs3ameFSPkhQkeFKvn.4/FYl/F36fsqrtr1p2', 4, '2024-05-03 23:20:43', '2024-05-06 05:16:42', NULL),
+(21, 'empresa prueba', 'cuido2022@gmail.com', NULL, '$2y$12$qG5eV4qbq9Lj8y3yDx9cz.6wCtVwOSPPhWjs6WCKPVimM2kjju.wK', 4, '2024-05-06 05:21:30', '2024-05-06 07:17:55', 'YbVL4e4bh1iRkS7kJ9w2CWHwLqKPA2wFcJzJJnpRdCXfXyBUgFZgzNnQOrtK'),
+(22, 'will', 'will@gmail.com', NULL, '$2y$12$hq8CSZX/xAYy/SzBW0IFe.uurFIBdbk0vDEOttnhu8fY44IKyDZoe', 2, '2024-05-06 06:09:20', '2024-05-06 07:29:09', 'dwLL7a95hba28t1syNog51dqdWheGjiBVYiZra3xi1aKC36g3G4VwZAoSYMx'),
+>>>>>>> panel/dependiente-sucursal
 (23, 'will', 'awill@gmail.com', NULL, '$2y$12$pr3i7Z63efdpFdct3s5GvuW9is4xzL0ynlfThRtDOB7hM/cyFea.W', 2, '2024-05-07 07:35:05', '2024-05-07 07:35:05', NULL),
 (24, 'will', 'swill@gmail.com', NULL, '$2y$12$wkmXJv95Z17aODwTQpNM5eDeHjwGCYyUYvSHzvLzaMABSg.D8NCFi', 2, '2024-05-07 07:41:39', '2024-05-07 07:41:39', NULL),
 (25, 'will', 's@c.com', '2024-05-07 09:37:35', '$2y$12$15MTkL4BVEUZuM0vyfqXPeoB4M2HNEiOVLpLki9xvPN9olwirmIzy', 2, '2024-05-07 09:36:21', '2024-05-07 09:37:35', NULL),
 (26, 'will', 'a@c.com', NULL, '$2y$12$PRoXPeDZwAVGe.VXiaD8Te.bhHaqYfjkAebOjS7jFAdeDujR.vUT2', 2, '2024-05-07 09:38:42', '2024-05-07 09:38:42', NULL),
 (27, 'will', 'aa@c.com', NULL, '$2y$12$T.BcZkZCCwfSFpmws.tQru1A7Bsuf/fmVJBBTnTDOaikox4P0TALi', 2, '2024-05-07 09:41:04', '2024-05-07 09:41:04', NULL),
+<<<<<<< HEAD
 (28, 'will', 'aaa@c.com', NULL, '$2y$12$IMn.SZ4WRKUT7uruf1s.h.vpURcso2gnKn5mFjO.c0vyx6YNVWS/.', 2, '2024-05-07 09:52:30', '2024-05-07 09:52:30', NULL),
 (29, 'will', 'ass@c.com', NULL, '$2y$12$S/NXjQ8o72Q1SziBkwU1keSA5vUrj/Clxr0GnFFmlGE1OPN02XGra', 2, '2024-05-07 22:57:22', '2024-05-07 22:57:22', NULL),
 (30, 'will', 'b@c.com', NULL, '$2y$12$Mcmd0Eg627Vk85jU9JlJve0bkao9DutJzU1D0rmvSVdnDy6ZK6O8W', 2, '2024-05-07 22:59:09', '2024-05-07 22:59:09', NULL),
@@ -446,6 +499,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (39, 'will', '13@c.com', NULL, '$2y$12$D74wMLi8SgyTbMTvQnK.6ust16UWZ811qLsQ9lc6q5/Ba5.T4uhrW', 2, '2024-05-08 07:02:07', '2024-05-08 07:02:07', NULL),
 (40, 'will', '14@c.com', NULL, '$2y$12$AHh/UbpiuQWtHas0PIewcuqOiC0DEN/txLNw4ihVEG5umhlF47X26', 2, '2024-05-08 07:02:41', '2024-05-08 07:02:41', NULL),
 (41, 'cliente', 'cliente@gmail.com', '2024-05-08 09:59:08', '$2y$12$13IfuU60KjvjI8/CZYpdhev0XA6SXCIzlvMEajYN5OK5OlVCKUrqS', 2, '2024-05-08 09:58:22', '2024-05-08 09:59:08', NULL);
+=======
+(28, 'will', 'aaa@c.com', NULL, '$2y$12$IMn.SZ4WRKUT7uruf1s.h.vpURcso2gnKn5mFjO.c0vyx6YNVWS/.', 2, '2024-05-07 09:52:30', '2024-05-07 09:52:30', NULL);
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- Índices para tablas volcadas
@@ -473,12 +529,15 @@ ALTER TABLE `coupons`
   ADD KEY `coupons_purchase_id_foreign` (`purchase_id`),
   ADD KEY `coupons_owner_id_foreign` (`owner_id`),
   ADD KEY `coupons_status_id_foreign` (`status_id`);
+<<<<<<< HEAD
 
 --
 -- Indices de la tabla `email_verifications`
 --
 ALTER TABLE `email_verifications`
   ADD PRIMARY KEY (`id`);
+=======
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -573,19 +632,26 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
+<<<<<<< HEAD
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+=======
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- AUTO_INCREMENT de la tabla `coupons`
 --
 ALTER TABLE `coupons`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT de la tabla `email_verifications`
 --
 ALTER TABLE `email_verifications`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+=======
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -597,7 +663,11 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
+<<<<<<< HEAD
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+=======
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- AUTO_INCREMENT de la tabla `offerer_companies`
@@ -622,12 +692,15 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `purchases`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT de la tabla `rejected_reasons`
 --
 ALTER TABLE `rejected_reasons`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+=======
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -645,7 +718,11 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
+<<<<<<< HEAD
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+=======
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+>>>>>>> panel/dependiente-sucursal
 
 --
 -- Restricciones para tablas volcadas
